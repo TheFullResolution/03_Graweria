@@ -68,14 +68,17 @@ body {
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center center;
+}
+
+.videotrans {
+    will-change: transform;
     -webkit-transition: -webkit-transform 1s cubic-bezier(.99,.1,.37,.89);
     transition: -webkit-transform 1s cubic-bezier(.99,.1,.37,.89);
     transition: transform 1s cubic-bezier(.99,.1,.37,.89);
     transition: transform 1s cubic-bezier(.99,.1,.37,.89), -webkit-transform 1s cubic-bezier(.99,.1,.37,.89);
-    will-change: transform;
 }
 
-.video_div--hidden {
+.videotrans-leave {
     -webkit-transform: translate3d(0px, -100%, 0px);
     transform: translate3d(0px, -100%, 0px);
 }
@@ -180,7 +183,7 @@ header {
 
 .info_board {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap-reverse;
     align-items: flex-end;
 }
 
@@ -250,6 +253,8 @@ header {
     height: calc(100% + 1px);
     display: table;
     background: rgba(226,226,226,0.8);
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
 }
 
 .popup_container {
@@ -257,8 +262,8 @@ header {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
-    transition: all .5s ease;
-    -webkit-transition: all .5s ease;
+    transition: all .7s ease;
+    -webkit-transition: all .7s ease;
 }
 
 .popup_container iframe {
@@ -266,9 +271,16 @@ header {
     width: 100vmin;
 }
 
-.popup-enter {
+.popup-enter, .popup-leave {
     opacity: 0;
 }
+
+.popup-enter .popup_container,
+.popup-leave .popup_container {
+    -webkit-transform: translate(0,-500px);
+    transform: translate(0,-500px);
+}
+
 
 .close_button {
     position: absolute;
