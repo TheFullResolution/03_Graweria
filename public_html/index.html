@@ -13,20 +13,25 @@
         <link rel="shortcut icon" href="favicon.ico"">
 
     </head>
-    <body>
-        <div class="page_div" id="app" >
-            <header>
-                <img src="img/banner.png" alt="banner" class="banner"/>
-                <a v-link="{path: '/info'}" class="links infolink">Dane Firmy</a>
-                <a v-link="{path: '/offer'}" class="links offerlink">Nasza Oferta</a>
-                <a v-link="{path: '/map'}" class="links maplink">Mapa Dojazdu</a>
-            </header>
-            <start-page v-show="displayVideo" class="videotrans" transition="videotrans" transition-mode="out-in"></start-page>
-            <section class="app">
-                <router-view></router-view>
-            </section>
+    <body id="app">
 
-        </div>
+        <header>
+            <div class="header_div">
+                <img src="img/banner.png" alt="banner" class="banner"/>
+                <div class="links_div">
+                    <a v-link="{path: '/info'}" class="links infolink">Dane Firmy</a>
+                    <a v-link="{path: '/offer'}" class="links offerlink">Nasza Oferta</a>
+                    <a v-link="{path: '/map'}" class="links maplink">Mapa Dojazdu</a>
+                </div>
+            </div>
+        </header>
+
+    <start-page v-show="displayVideo" class="videotrans" transition="videotrans" transition-mode="out-in"></start-page>
+    <section class="app">
+        <router-view class="fade" transition="fade" transition-mode="out-in"></router-view>
+    </section>
+
+
 
 
 
@@ -51,10 +56,6 @@
             </div>
             <router-view></router-view>
             <div class="info_board">
-                <a href="#info/video" class="info_link_popup">
-                    <p>Obejrzyj nasz film:</p>
-                    <img src="img/hours_play.jpg" alt="hours" class='info_pic'/>
-                </a>
                 <div class="info_details">
                     <h3>Grawer</h3>
                     <p>ul. Świętojańska 81, Gdynia</p>
@@ -64,6 +65,10 @@
                     <p>Od poniedziałku do piątku: 11 - 18</p>
                     <p>Sobota: 11 - 14</p>
                 </div>
+                <a href="#info/video" class="info_link_popup">
+                    <p>Obejrzyj nasz film:</p>
+                    <img src="img/hours_play.jpg" alt="hours" class='info_pic'/>
+                </a>
             </div>
         </div>
     </template>

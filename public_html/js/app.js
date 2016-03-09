@@ -2,6 +2,14 @@
 
 Vue.component('start-page', {
     template: '#start_page_template',
+    created: function () {
+        var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
+        console.log(width);
+        console.log(typeof window.orientation);
+        if (width < 800 && (typeof window.orientation) !== 'undefined') {
+            router.go({path: '/info'});
+        }
+    },
     ready: function () {
         if (this.$parent.displayVideo) {
             this.runVideo();
@@ -10,10 +18,10 @@ Vue.component('start-page', {
     },
     methods: {
         runVideo: function () {
-            var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
+
             var supportsVideoElement = !!document.createElement('video').canPlayType;
 
-            if (supportsVideoElement && width > 1000) {
+            if (supportsVideoElement) {
                 var backVideo = document.createElement("video");
                 backVideo.className = "video";
                 backVideo.id = "back_video";
@@ -41,8 +49,6 @@ Vue.component('start-page', {
                 backVideoDom.oncanplaythrough = function () {
                     backVideoDom.play();
                 };
-            } else {
-                router.go({path: '/info'});
             }
         },
         scrollVideodown: function () {
