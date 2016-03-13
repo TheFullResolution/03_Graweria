@@ -26,7 +26,7 @@
             </div>
         </header>
 
-    <start-page v-show="displayVideo" class="videotrans" transition="videotrans" transition-mode="out-in"></start-page>
+    <start-page v-show="displayVideo " class="videotrans" transition="videotrans" transition-mode="out-in"></start-page>
     <section class="app">
         <router-view class="fade" transition="fade" transition-mode="out-in"></router-view>
     </section>
@@ -89,12 +89,14 @@
     </template>
 
     <template id="map_template">
-        <a href="https://www.google.com/maps/place/Grawer/@54.5125005,18.5375007,17z/data=!3m1!4b1!4m2!3m1!1s0x46fda73195e00d65:0xa620abc7320fac9f?hl=pl-PL"
-           class="link_to_map"
-           target="blank">
-            Wyświetl na Google Map
-        </a>
-        <div id="map_div" class="map">Sorry, no map</div>
+        <div style="height: 100%">
+            <a href="https://www.google.com/maps/place/Grawer/@54.5125005,18.5375007,17z/data=!3m1!4b1!4m2!3m1!1s0x46fda73195e00d65:0xa620abc7320fac9f?hl=pl-PL"
+               class="link_to_map"
+               target="blank">
+                Wyświetl na Google Map
+            </a>
+            <div id="map_div" class="map">Sorry, no map</div>
+        </div>
     </template>
 
     <template id="offer_template">

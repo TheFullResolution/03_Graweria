@@ -1,0 +1,31 @@
+{
+    "craft": [
+        {
+            "group1": [
+                {
+                    "name": "",
+                    "subgroup": "",
+                    "portrait": false
+                }
+            ],
+            "group2": [
+                {
+                    "name": "",
+                    "subgroup": "",
+                    "portrait": false
+                }
+            ]
+        }
+    ],
+    "assortment": [
+        {
+            "group1": [
+                {
+                    "name": "",
+                    "subgroup": "",
+                    "portrait": false
+                }
+            ]
+        }
+    ]
+}

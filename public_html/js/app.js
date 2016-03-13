@@ -2,17 +2,12 @@
 
 Vue.component('start-page', {
     template: '#start_page_template',
-    created: function () {
-        var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
-        console.log(width);
-        console.log(typeof window.orientation);
-        if (width < 800 && (typeof window.orientation) !== 'undefined') {
-            router.go({path: '/info'});
-        }
-    },
     ready: function () {
+        $('#video_div').addClass('video_div_background');
         if (this.$parent.displayVideo) {
             this.runVideo();
+        } else {
+            router.go({path: '/info'});
         }
         this.scrollVideodown();
     },
@@ -67,7 +62,8 @@ Vue.component('start-page', {
 var App = Vue.extend({
     data: function () {
         return {
-            mapSuccess: false
+            mapSuccess: false,
+            selected: ''
         };
     },
     ready: function () {
@@ -75,8 +71,13 @@ var App = Vue.extend({
     },
     computed: {
         displayVideo: function () {
+            var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
             if (this.$route.path === '/') {
-                return true;
+                if (width < 800 && (typeof window.orientation) !== 'undefined') {
+                    return false;
+                } else {
+                    return true;
+                }
             } else {
                 return false;
             }
@@ -92,22 +93,23 @@ var App = Vue.extend({
                 success: function () {
                     self.mapSuccess = true;
                 }});
+        },
+        removeSelectedLink: function (className) {
+            if (this.selected) {
+                $(this.selected).removeClass('link-selected');
+            }
+            this.selected = className;
+            $(this.selected).addClass('link-selected');
         }
     }
 });
 
-var removeSelectedLink = function (className) {
-    $('.links').each(function () {
-        $(this).removeClass('link-selected');
-    });
-    $(className).addClass('link-selected');
-};
 
 var Info = Vue.extend({
     template: '#info_template',
     ready: function () {
         window.scrollTo(0, 0);
-        removeSelectedLink('.infolink');
+        this.$parent.removeSelectedLink('.infolink');
     }
 });
 
@@ -122,7 +124,7 @@ var Offer = Vue.extend({
     template: '#offer_template',
     ready: function () {
         window.scrollTo(0, 0);
-        removeSelectedLink('.offerlink');
+        this.$parent.removeSelectedLink('.offerlink');
     }
 });
 
@@ -130,7 +132,7 @@ var Map = Vue.extend({
     template: '#map_template',
     ready: function () {
         window.scrollTo(0, 0);
-        removeSelectedLink('.maplink');
+        this.$parent.removeSelectedLink('.maplink');
         this.loadMap();
         this.$watch(function () {
             return this.status;
