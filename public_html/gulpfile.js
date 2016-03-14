@@ -66,11 +66,11 @@ var jpgNameCheck = function (subfolder, folder) {
     var startPath = path.join('img/new', subfolder, folder);
 
     var endPath = path.join('img/offer', subfolder, folder);
-
+    var checkPath = path.join(endPath, 'zoom');
     var index = 1, prename = '';
 
-    pathExists(endPath).then(function (exists) {
-        var files = fs.readdirSync(endPath);
+    pathExists(checkPath).then(function (exists) {
+        var files = fs.readdirSync(checkPath);
         files.forEach(function (currentFile) {
             var currentIndex = (/^([0-9]+)\.jpg$/i.exec(currentFile) || [, false])[1];
             if (currentIndex && parseInt(currentIndex) >= index) {

@@ -6,7 +6,7 @@ Vue.component('start-page', {
         $('#video_div').addClass('video_div_background');
         if (this.$parent.displayVideo) {
             this.runVideo();
-        } else {
+        } else if (this.$route.path === '/') {
             router.go({path: '/info'});
         }
         this.scrollVideodown();
