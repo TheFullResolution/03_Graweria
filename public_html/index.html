@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 
 <html lang="pl">
-    <head>
-        <meta charset="utf-8" />
-        <title>Graweria.pl</title>
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-        <meta name="description" content="Grawer">
-        <!-- build:css -->
-        <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
-        <link href="css/app.css" rel="stylesheet" type="text/css"/>
-        <!-- endbuild -->
-        <link rel="shortcut icon" href="favicon.ico"">
+<head>
+    <meta charset="utf-8" />
+    <title>Graweria.pl</title>
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Grawer">
+    <!-- build:css -->
+    <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
+    <link href="css/app.css" rel="stylesheet" type="text/css"/>
+    <!-- endbuild -->
+    <link rel="shortcut icon" href="favicon.ico"">
 
-    </head>
-    <body id="app">
+</head>
+<body id="app">
 
-        <header>
-            <div class="header_div">
-                <img src="img/banner.png" alt="banner" class="banner"/>
-                <div class="links_div">
-                    <a v-link="{path: '/info'}" class="links infolink">Dane Firmy</a>
-                    <a v-link="{path: '/offer'}" class="links offerlink">Nasza Oferta</a>
-                    <a v-link="{path: '/map'}" class="links maplink">Mapa Dojazdu</a>
-                </div>
+    <header>
+        <div class="header_div">
+            <img src="img/banner.png" alt="banner" class="banner"/>
+            <div class="links_div">
+                <a v-link="{path: '/info'}" class="links infolink">Dane Firmy</a>
+                <a v-link="{path: '/offer/shop'}" class="links offerlink">Nasza Oferta</a>
+                <a v-link="{path: '/map'}" class="links maplink">Mapa Dojazdu</a>
             </div>
-        </header>
+        </div>
+    </header>
 
     <start-page v-show="displayVideo " class="videotrans" transition="videotrans" transition-mode="out-in"></start-page>
     <section class="app">
@@ -50,9 +50,9 @@
             <div class="info_top">
                 <h1>Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni.</h1>
                 <p>50 lat gwarancji </p> <p>na ręcznie grawerowane obrączki.
-                    Jest to wymiar rzemiosła, które oferuje Państwu nasza firma.
-                    Firma, której korzenie sięgają Pracowni Grawerskiej powstałej
-                    w Gdyni w pierwszych latach powojennych.</p>
+                Jest to wymiar rzemiosła, które oferuje Państwu nasza firma.
+                Firma, której korzenie sięgają Pracowni Grawerskiej powstałej
+                w Gdyni w pierwszych latach powojennych.</p>
             </div>
             <router-view></router-view>
             <div class="info_board">
@@ -91,29 +91,92 @@
     <template id="map_template">
         <div style="height: 100%">
             <a href="https://www.google.com/maps/place/Grawer/@54.5125005,18.5375007,17z/data=!3m1!4b1!4m2!3m1!1s0x46fda73195e00d65:0xa620abc7320fac9f?hl=pl-PL"
-               class="link_to_map"
-               target="blank">
-                Wyświetl na Google Map
-            </a>
-            <div id="map_div" class="map">Sorry, no map</div>
-        </div>
-    </template>
+            class="link_to_map"
+            target="blank">
+            Wyświetl na Google Map
+        </a>
+        <div id="map_div" class="map">Sorry, no map</div>
+    </div>
+</template>
 
-    <template id="offer_template">
-        <div>
-            <a href class="link_offer">
-                Rękodzieło
-            </a>
-
-            <a href class="link_offer">
+<template id="offer_template">
+    <div>
+        <div class="link_offer_div">
+            <a v-link="{path: '/offer/shop'}"  class="link_offer shop_link">
                 Sklep
             </a>
+            <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
+                Rękodzieło
+            </a>
+            <a v-link="{path: '/offer/assortment'}"  class="link_offer assortment_link">
+                Produkty
+            </a>
         </div>
-    </template>
+        <div class="offer_sections">
+            <router-view></router-view>
+        </div>
+    </div>
+</template>
 
-    <script src="js/jquery-2.2.1.js" type="text/javascript"></script>
-    <script src="js/vue.js" type="text/javascript"></script>
-    <script src="js/vue-router.js" type="text/javascript"></script>
-    <script src="js/app.js" type="text/javascript"></script>
+<template id="shop_template">
+    <div class="shop_div">
+        <div v-for="pic in pics" class="shop_div_item">
+
+            <img 
+            class="lazyload pics"
+            data-expand="-100"
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            data-src="{{picFolder + pic.name}}"
+            >
+
+        </div>
+    </div>
+</template>
+
+<template id="craft_template">
+    <div>
+        <div class="offer_filters_div">
+            <a v-link="{path: '/offer/craft/herby'}"> Herby, monogramy</a>
+            <a v-link="{path: '/offer/craft/tablice'}">Tablice</a>
+            <a v-link="{path: '/offer/craft/tabliczki'}">Tabliczki okolicznościowe</a>
+            <a v-link="{path: '/offer/craft/dzwony'}">Dzwony</a>
+            <a v-link="{path: '/offer/craft/male'}">Małe przedmioty</a>
+            <a v-link="{path: '/offer/craft/all'}">Wszystko<a>
+        </div>
+        <div class="offer_content_div">
+        <div v-for="pic in pics | filterBy filterVal in 'product'" >
+        <img 
+            class="lazyload pics"
+            data-expand="-100"
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}"
+            >
+        </div>
+        </div>
+    </div>
+</template>
+
+<template id="assortment_template">
+    <div>
+        <div class="offer_filters_div">
+            <a href>Ikony</a>
+            <a href>Repliki broni białej</a>
+            <a href>Artykuły pamiątkowe</a>
+            <a href>Chrzest i I Komunia Święta</a>
+            <a href>Figurki</a>
+            <a href>Ryngrafy</a>
+            <a href>Zippo</a>
+        </div>        
+        <div class="offer_content_div">
+
+        </div>
+        </div>
+    </div>
+</template>
+
+<script src="js/jquery-2.2.1.js" type="text/javascript"></script>
+<script src="js/vue.js" type="text/javascript"></script>
+<script src="js/vue-router.js" type="text/javascript"></script>
+<script src="js/app.js" type="text/javascript"></script>
 </body>
 </html>

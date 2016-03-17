@@ -2,20 +2,21 @@
 
 Vue.component('start-page', {
     template: '#start_page_template',
-    ready: function () {
+    ready: function() {
         $('#video_div').addClass('video_div_background');
         if (this.$parent.displayVideo) {
             this.runVideo();
         } else if (this.$route.path === '/') {
-            router.go({path: '/info'});
+            router.go({
+                path: '/info'
+            });
         }
         this.scrollVideodown();
     },
     methods: {
-        runVideo: function () {
+        runVideo: function() {
 
             var supportsVideoElement = !!document.createElement('video').canPlayType;
-
             if (supportsVideoElement) {
                 var backVideo = document.createElement("video");
                 backVideo.className = "video";
@@ -41,36 +42,46 @@ Vue.component('start-page', {
                 backVideo.load();
                 videoDiv.append(backVideo);
                 backVideoDom = document.getElementById('back_video');
-                backVideoDom.oncanplaythrough = function () {
+                backVideoDom.oncanplaythrough = function() {
                     backVideoDom.play();
                 };
             }
         },
-        scrollVideodown: function () {
+        scrollVideodown: function() {
             var self = this;
-            $('#video_div').bind('mousewheel', function () {
+            $('#video_div').bind('mousewheel', function() {
                 self.putVideodown();
-                router.go({path: '/info'});
+                router.go({
+                    path: '/info'
+                });
             });
         },
-        putVideodown: function () {
+        putVideodown: function() {
             $('#back_video').remove();
         }
     }
 });
 
 var App = Vue.extend({
-    data: function () {
+    data: function() {
         return {
+            folders: {
+                "assortment": "img/offer/assortment/",
+                "craft": "img/offer/craft/",
+                "shop": "img/offer/shop/inside/",
+            },
             mapSuccess: false,
-            selected: ''
+            selected: '',
+            offerdata: {}
         };
     },
-    ready: function () {
+    ready: function() {
         this.downloadMapAPI();
+        this.downloadlazyload();
+        this.fetchData();
     },
     computed: {
-        displayVideo: function () {
+        displayVideo: function() {
             var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
             if (this.$route.path === '/') {
                 if (width < 800 && (typeof window.orientation) !== 'undefined') {
@@ -81,25 +92,50 @@ var App = Vue.extend({
             } else {
                 return false;
             }
+        },
+        thumbFolder: function() {
+            var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
+            if (width < 800) {
+                return "small/";
+            } else {
+                return "mid/";
+            }
+
+        },
+        offerDataReady: function() {
+            return this.offerdata;
         }
     },
     methods: {
-        downloadMapAPI: function () {
+        downloadMapAPI: function() {
             var self = this;
             var url = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDGUROHjSwHDzFbfvD07N-47_bq3bdgaOs&libraries=places';
             $.ajax({
                 url: url,
                 dataType: 'script',
-                success: function () {
+                success: function() {
                     self.mapSuccess = true;
-                }});
+                }
+            });
         },
-        removeSelectedLink: function (className) {
-            if (this.selected) {
-                $(this.selected).removeClass('link-selected');
-            }
-            this.selected = className;
-            $(this.selected).addClass('link-selected');
+        downloadlazyload: function() {
+            var url = "js/lazysizes.min.js";
+            $.ajax({
+                url: url,
+                dataType: 'script',
+                success: function() {
+                    window.lazySizesConfig = {
+                        addClasses: true
+                    };
+
+                }
+            });
+        },
+        fetchData: function() {
+            var self = this;
+            $.getJSON("js/offer.json", function(json) {
+                self.offerdata = json;
+            });
         }
     }
 });
@@ -107,51 +143,134 @@ var App = Vue.extend({
 
 var Info = Vue.extend({
     template: '#info_template',
-    ready: function () {
+    ready: function() {
         window.scrollTo(0, 0);
-        this.$parent.removeSelectedLink('.infolink');
     }
 });
 
 var VideoPopup = Vue.extend({
     template: '#videopopup_template',
-    ready: function () {
-    }
+    ready: function() {}
 });
 
 
 var Offer = Vue.extend({
     template: '#offer_template',
-    ready: function () {
+    ready: function() {
         window.scrollTo(0, 0);
-        this.$parent.removeSelectedLink('.offerlink');
+        $('.offerlink').addClass('offer-link-fix');
+    },
+    beforeDestroy: function() {
+        $('.offerlink').removeClass('offer-link-fix');
+    },
+    data: function() {
+        return {
+            selected: ''
+        };
+    },
+    computed: {
+        offerDataReady: function() {
+            return this.$parent.offerDataReady;
+        },
+        folders: function() {
+            return this.$parent.folders;
+        },
+        thumbFolder: function() {
+            return this.$parent.thumbFolder;
+        }
+
     }
 });
 
+var ShopVue = Vue.extend({
+    template: '#shop_template',
+    ready: function() {
+        window.scrollTo(0, 0);
+
+    },
+    computed: {
+        pics: function() {
+            if (this.$parent.offerDataReady.folders) {
+                return this.$parent.offerDataReady.folders.shop.inside;
+            }
+        },
+        picFolder: function() {
+            return this.$parent.folders.shop + this.$parent.thumbFolder;
+        }
+
+    }
+});
+
+var CraftVue = Vue.extend({
+    template: '#craft_template',
+    ready: function() {
+        window.scrollTo(0, 0);
+        console.log(this.$route.params);
+    },
+    computed: {
+        pics: function() {
+            if (this.$parent.offerDataReady.folders) {
+                var object = this.$parent.offerDataReady.folders.craft;
+                var data = [];
+                object.forEach(function(group){
+                    group.list.forEach(function(el){
+                        data.push(el);
+                    });
+                });
+                return data;
+            }
+        },
+        groupFolder: function() {
+            return this.$parent.folders.craft;
+        },
+        thumbFolder: function() {
+            return this.$parent.thumbFolder;
+        },
+        filterVal: function() {
+            if (this.$route.params.filter === 'all') {
+                return '';
+            } else {
+            return this.$route.params.filter;
+        }
+        }
+    }
+});
+
+var AssortVue = Vue.extend({
+    template: '#assortment_template',
+    ready: function() {
+        window.scrollTo(0, 0);
+    }
+});
+
+
+
 var Map = Vue.extend({
     template: '#map_template',
-    ready: function () {
+    ready: function() {
         window.scrollTo(0, 0);
-        this.$parent.removeSelectedLink('.maplink');
         this.loadMap();
-        this.$watch(function () {
+        this.$watch(function() {
             return this.status;
-        }, function () {
+        }, function() {
             this.loadMap();
         });
     },
     computed: {
-        status: function () {
+        status: function() {
             return this.$parent.mapSuccess;
         }
     },
     methods: {
-        loadMap: function () {
+        loadMap: function() {
             var placeID = 'ChIJZQ3glTGn_UYRn6wPMserIKY';
             var mapDiv = document.getElementById('map_div');
             if (mapDiv && this.status) {
                 map = new google.maps.Map(mapDiv, {
-                    center: {lat: 54.51250049999999, lng: 18.539694699999927},
+                    center: {
+                        lat: 54.51250049999999,
+                        lng: 18.539694699999927
+                    },
                     zoom: 15
                 });
                 service = new google.maps.places.PlacesService(map);
@@ -159,27 +278,30 @@ var Map = Vue.extend({
                     map: map
                 });
                 var infowindow = new google.maps.InfoWindow();
-                marker.addListener('click', function () {
+                marker.addListener('click', function() {
                     infowindow.open(map, marker);
                 });
                 marker.setPlace({
                     placeId: placeID,
-                    location: {lat: 54.51250049999999, lng: 18.539694699999927}
+                    location: {
+                        lat: 54.51250049999999,
+                        lng: 18.539694699999927
+                    }
                 });
 
                 marker.setVisible(true);
 
-                var infoWindowRun = function () {
+                var infoWindowRun = function() {
                     if (infowindow) {
                         infowindow.close();
                     }
                     service.getDetails({
                         placeId: placeID
-                    }, function (place, status) {
+                    }, function(place, status) {
                         if (status === google.maps.places.PlacesServiceStatus.OK) {
                             var text = '<h3>' +
-                                    place.name + '</h3>' +
-                                    '<p>' + place.formatted_address + '</p>';
+                                place.name + '</h3>' +
+                                '<p>' + place.formatted_address + '</p>';
                             infowindow = new google.maps.InfoWindow({
                                 content: text,
                                 maxWidth: 220
@@ -190,7 +312,7 @@ var Map = Vue.extend({
 
                 };
 
-                marker.addListener('click', function () {
+                marker.addListener('click', function() {
                     infoWindowRun();
                 });
 
@@ -199,8 +321,7 @@ var Map = Vue.extend({
     }
 });
 
-var router = new VueRouter({
-});
+var router = new VueRouter({});
 
 router.map({
     '/info': {
@@ -217,12 +338,22 @@ router.map({
         }
     },
     '/offer': {
-        component: Offer
+        component: Offer,
+        subRoutes: {
+            '/shop': {
+                component: ShopVue
+            },
+            '/craft/:filter': {
+                component: CraftVue
+            },
+            '/assortment': {
+                component: AssortVue
+            }
+        }
     },
     '/map': {
         component: Map
     }
 });
 
-router.start(App, '#app', function () {
-});
+router.start(App, '#app', function() {});

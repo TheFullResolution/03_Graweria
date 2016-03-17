@@ -138,8 +138,26 @@ gulp.task('images-resize', function () {
     return tasks;
 });
 
-
 gulp.task('images-clean', function () {
+    var offerPath = 'img/offer';
+    var newPath = 'img/new';
+
+    var foldersOffer = getFolders(offerPath);
+    var foldersNew = getFolders(newPath);
+
+    var tasksCleanOffer = foldersOffer.map(function (folder) {
+        var subfolders = getFolders(path.join(offerPath, folder));
+        subfolders.map(function (subfolder) {
+            var pathToClean = path.join(offerPath, folder, subfolder, 'new');
+            return del(pathToClean);
+        });
+    });
+
+    return tasksCleanOffer;
+});
+
+
+gulp.task('images-clean-new', function () {
     var offerPath = 'img/offer';
     var newPath = 'img/new';
 
@@ -151,17 +169,9 @@ gulp.task('images-clean', function () {
         return del(subfolders);
     });
 
-    var tasksCleanOffer = foldersOffer.map(function (folder) {
-        var subfolders = getFolders(path.join(offerPath, folder));
-        subfolders.map(function (subfolder) {
-            var pathToClean = path.join(offerPath, folder, subfolder, 'new');
-            return del(pathToClean);
-        });
-    });
 
-    return tasksCleanNew, tasksCleanOffer;
+    return tasksCleanNew;
 });
-
 
 
 
