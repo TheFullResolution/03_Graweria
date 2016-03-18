@@ -10,7 +10,7 @@
     <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
     <link href="css/app.css" rel="stylesheet" type="text/css"/>
     <!-- endbuild -->
-    <link rel="shortcut icon" href="favicon.ico"">
+    <link rel="shortcut icon" href="favicon.ico"/>
 
 </head>
 <body id="app">
@@ -62,8 +62,8 @@
                         <p>ul. Świętojańska 81, Gdynia</p>
                         <p><a href="tel:+48586200273">+48 58 620 02 73</a></p>
                         <p><a href="mailto:grawer.gdynia@interia.pl">grawer.gdynia@interia.pl</a></p>
-                    </div class="info_details_2">
-                    <div>
+                    </div>
+                    <div class="info_details_2">
                         <h3>Godziny otwarcia:</h3>
                         <p>Od poniedziałku do piątku: 11 - 18</p>
                         <p>Sobota: 11 - 14</p>
@@ -71,7 +71,12 @@
                 </div>
                 <a href="#info/video" class="info_link_popup">
                     <p>Obejrzyj nasz film:</p>
-                    <img src="img/hours_play.jpg" alt="hours" class='info_pic'/>
+                    <img 
+                    class="info_pic lazyload"
+                    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    data-src="img/hours_play.jpg"
+                    alt="hours"
+                    >
                 </a>
             </div>
         </div>
@@ -101,59 +106,93 @@
 
 <template id="offer_template">
     <div>
-        <div class="link_offer_div">
-            <a v-link="{path: '/offer/shop'}"  class="link_offer shop_link">
-                Sklep
-            </a>
-            <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
-                Rękodzieło
-            </a>
-            <a v-link="{path: '/offer/assortment'}"  class="link_offer assortment_link">
-                Produkty
-            </a>
+        <div class="link_offer_container">
+            <div class="link_offer_div">
+                <a v-link="{path: '/offer/shop'}"  class="link_offer shop_link">
+                    Sklep
+                </a>
+                <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
+                    Rękodzieło
+                </a>
+                <a v-link="{path: '/offer/assortment'}"  class="link_offer assortment_link">
+                    Produkty
+                </a>
+            </div>
+            <div class="link_offer_sticky">
+                <div class="link_offer_big">
+                    <a v-link="{path: '/offer/shop'}"  class="link_offer shop_link">
+                        Sklep
+                    </a>
+                    <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
+                        Rękodzieło
+                    </a>
+                    <a v-link="{path: '/offer/assortment'}"  class="link_offer assortment_link">
+                        Produkty
+                    </a>
+                    <img src="img/up.png" alt="up button" class="offer_up" v-on:click="upClick">
+                </div>
+
+            </div>
+
         </div>
         <div class="offer_sections">
-            <router-view></router-view>
+            <router-view class="move" transition="move" transition-mode="out-in"></router-view>
         </div>
     </div>
 </template>
 
 <template id="shop_template">
     <div class="shop_div">
-        <div v-for="pic in pics" class="shop_div_item">
-
-            <img 
-            class="lazyload pics"
-            data-expand="-100"
-            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-            data-src="{{picFolder + pic.name}}"
-            >
-
-        </div>
+        <figure v-for="pic in pics" class="shop_div_item">
+            <a href="#!">
+                <div class="img_div">
+                    <img 
+                    class="lazyload pics"
+                    data-expand="-100"
+                    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    data-src="{{picFolder + pic.name}}"
+                    >
+                </div>
+            </a>
+        </figure>
     </div>
 </template>
 
 <template id="craft_template">
-    <div>
-        <div class="offer_filters_div">
-            <a v-link="{path: '/offer/craft/herby'}"> Herby, monogramy</a>
-            <a v-link="{path: '/offer/craft/tablice'}">Tablice</a>
-            <a v-link="{path: '/offer/craft/tabliczki'}">Tabliczki okolicznościowe</a>
-            <a v-link="{path: '/offer/craft/dzwony'}">Dzwony</a>
-            <a v-link="{path: '/offer/craft/male'}">Małe przedmioty</a>
-            <a v-link="{path: '/offer/craft/all'}">Wszystko<a>
+    <div class="offer_container">
+        <div class="offer_filters_container">
+        <div class="show_filters" v-show="!$parent.show"> 
+                <div class="toggle_filters" v-on:click="$parent.toggleFilter">
+                    <img src="img/right.png" class="arrow_filters">
+                </div>
+            </div>
+            <div class="offer_filters_div" v-show="$parent.show">
+                <div class="toggle_filters" v-on:click="$parent.toggleFilter">
+                    <img src="img/left.png" class="arrow_filters">
+                </div>
+                <a v-link="{path: '/offer/craft/herby'}" v-on:click="$parent.filterClick"> Herby, monogramy</a>
+                <a v-link="{path: '/offer/craft/tablice'}" v-on:click="$parent.filterClick">Tablice</a>
+                <a v-link="{path: '/offer/craft/tabliczki'}" v-on:click="$parent.filterClick">Tabliczki okolicznościowe</a>
+                <a v-link="{path: '/offer/craft/dzwony'}" v-on:click="$parent.filterClick">Dzwony</a>
+                <a v-link="{path: '/offer/craft/male'}" v-on:click="$parent.filterClick">Małe przedmioty</a>
+                <a v-link="{path: '/offer/craft/all'}" v-on:click="$parent.filterClick">Wszystko</a>
+            </div>
         </div>
         <div class="offer_content_div">
-        <div v-for="pic in pics | filterBy filterVal in 'product'" >
-        <img 
-            class="lazyload pics"
-            data-expand="-100"
-            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-            data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}"
-            >
-        </div>
-        </div>
+            <figure v-for="pic in pics | filterBy filterVal in 'product'" 
+            class="offer_content_item">
+            <a v-link="{path: zoomlink + $index}">
+                <img 
+                class="lazyload pics"
+                data-expand="-100"
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}">
+            </a>
+        </figure>
+
     </div>
+    <router-view></router-view>
+</div>
 </template>
 
 <template id="assortment_template">
@@ -170,11 +209,48 @@
         <div class="offer_content_div">
 
         </div>
-        </div>
     </div>
 </template>
 
+<template id="picture_zoom_template">
+    <div class="popup_mask" transition="popup"  id="swipe_div">
+        <div class="popup_container" >
+            <div class="popup_details_top">
+                <div class="tab_text">
+                    <p>Obrazek: {{index + 1}}/{{lengthZoomPics}}</p>
+                </div>
+                <div class="close_btn">
+                    <a v-link="{path: zoomlink}">
+                        <img src="img/close.svg" alt="close button" >
+                    </a>
+                </div>
+            </div>
+            <div class="popup_img_div"
+            v-bind:class="popClass">
+            <a v-link ="{path: zoomlink + prevpic}"
+            class="arrows left">
+            <img src="img/left.png" alt="left arrow" >
+        </a>
+        <div  class="img_link" v-on:click="details">
+            <img class="img_link_img lazyload"
+            v-bind:class="imgClass"
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            data-src="{{groupFolder + currentPic.product + '/' + thumbFolder + currentPic.name}}"
+            >
+            
+        </div>
+        <a v-link ="{path: zoomlink + nextpic}"
+        class="arrows right">
+        <img src="img/right.png" alt="right arrow" >
+    </a>
+</div>
+</div>
+</div>
+
+</template>
+
 <script src="js/jquery-2.2.1.js" type="text/javascript"></script>
+<script src="js/hammer.min.js" type="text/javascript"></script>
 <script src="js/vue.js" type="text/javascript"></script>
 <script src="js/vue-router.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>

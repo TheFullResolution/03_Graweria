@@ -159,13 +159,18 @@ var Offer = Vue.extend({
     ready: function() {
         window.scrollTo(0, 0);
         $('.offerlink').addClass('offer-link-fix');
+        this.stickyHeader(jQuery, window, document);
+        this.forceFilters();
     },
     beforeDestroy: function() {
         $('.offerlink').removeClass('offer-link-fix');
+        $(window).off('scroll');
+        $(window).off('resize');
     },
     data: function() {
         return {
-            selected: ''
+            selected: '',
+            show: true
         };
     },
     computed: {
@@ -178,7 +183,84 @@ var Offer = Vue.extend({
         thumbFolder: function() {
             return this.$parent.thumbFolder;
         }
+    },
+    methods: {
+        filterClick: function() {
+            window.scrollTo(0, 0);
+        },
+        upClick: function() {
+            window.scrollTo(0, 0);
+        },
+        forceFilters: function() {
+            var self = this;
+            $( window ).resize(function() {
+                windowCheck = $( window ).width();
+            if(windowCheck > 650){
+                self.show = true;
+            }
+        });
+        },
+        toggleFilter: function() {
+            this.show = !this.show;
+        },
+        stickyHeader: function($, window, document, undefined) {
+            'use strict';
 
+            var elSelector = '.link_offer_sticky',
+                elClassShow = 'link_offer_show',
+                $element2 = $('.link_offer_div'),
+                el2ClassHide = 'link_offer_hide',
+                throttleTimeout = 500,
+                $element = $(elSelector);
+
+            if (!$element.length) return true;
+
+            var $window = $(window),
+                wHeight = 0,
+                wScrollCurrent = 0,
+                wScrollBefore = 0,
+                wScrollDiff = 0,
+                $document = $(document),
+                dHeight = 0,
+
+                throttle = function(delay, fn) {
+                    var last, deferTimer;
+                    return function() {
+                        var context = this,
+                            args = arguments,
+                            now = +new Date;
+                        if (last && now < last + delay) {
+                            clearTimeout(deferTimer);
+                            deferTimer = setTimeout(function() {
+                                last = now;
+                                fn.apply(context, args);
+                            }, delay);
+                        } else {
+                            last = now;
+                            fn.apply(context, args);
+                        }
+                    };
+                };
+
+            $window.on('scroll', throttle(throttleTimeout, function() {
+                dHeight = $document.height();
+                wHeight = $window.height();
+                wScrollCurrent = $window.scrollTop();
+                wScrollDiff = wScrollBefore - wScrollCurrent;
+                if (wScrollCurrent <= 200) {
+                    $element.removeClass(elClassShow);
+                    $element2.removeClass(el2ClassHide);
+                } else if (wScrollDiff < 0) // scrolled down
+                {
+
+                    $element.addClass(elClassShow);
+                    $element2.addClass(el2ClassHide);
+                }
+
+                wScrollBefore = wScrollCurrent;
+            }));
+
+        }
     }
 });
 
@@ -186,7 +268,10 @@ var ShopVue = Vue.extend({
     template: '#shop_template',
     ready: function() {
         window.scrollTo(0, 0);
-
+        $('.shop_link').addClass('link_offer-active');
+    },
+    beforeDestroy: function() {
+        $('.shop_link').removeClass('link_offer-active');
     },
     computed: {
         pics: function() {
@@ -205,15 +290,19 @@ var CraftVue = Vue.extend({
     template: '#craft_template',
     ready: function() {
         window.scrollTo(0, 0);
-        console.log(this.$route.params);
+        $('.craft_link').addClass('link_offer-active');
+        this.$parent.show = true;
+    },
+    beforeDestroy: function() {
+        $('.craft_link').removeClass('link_offer-active');
     },
     computed: {
         pics: function() {
             if (this.$parent.offerDataReady.folders) {
                 var object = this.$parent.offerDataReady.folders.craft;
                 var data = [];
-                object.forEach(function(group){
-                    group.list.forEach(function(el){
+                object.forEach(function(group) {
+                    group.list.forEach(function(el) {
                         data.push(el);
                     });
                 });
@@ -230,9 +319,13 @@ var CraftVue = Vue.extend({
             if (this.$route.params.filter === 'all') {
                 return '';
             } else {
-            return this.$route.params.filter;
+                return this.$route.params.filter;
+            }
+        },
+        zoomlink: function() {
+            return '/offer/craft/' + this.$route.params.filter + '/';
         }
-        }
+
     }
 });
 
@@ -240,9 +333,158 @@ var AssortVue = Vue.extend({
     template: '#assortment_template',
     ready: function() {
         window.scrollTo(0, 0);
-    }
+        $('.assortment_link').addClass('link_offer-active');
+    },
+    beforeDestroy: function() {
+        $('.assortment_link').removeClass('link_offer-active');
+    },
 });
 
+
+var ZoomVue = Vue.extend({
+    template: '#picture_zoom_template',
+    ready: function() {
+
+        this.swipe();
+        this.$watch(function() {
+                return this.index;
+            },
+            function() {
+                this.imgChange();
+            });
+    },
+    computed: {
+        zoomPics: function() {
+            if (this.$parent.pics) {
+                filter = this.$route.params.filter;
+                data = this.$parent.pics;
+                filteredData = [];
+
+                if (filter === 'all') {
+                    return data;
+                } else {
+                    data.forEach(function(el) {
+                        if (el.product === filter) {
+                            filteredData.push(el);
+                        }
+                    });
+                    return filteredData;
+                }
+            } else {
+                return [];
+            }
+        },
+        lengthZoomPics: function() {
+            if (this.$parent.pics) {
+                filter = this.$route.params.filter;
+                data = this.$parent.pics;
+                filteredData = [];
+
+                if (filter === 'all') {
+                    return data.length;
+                } else {
+                    data.forEach(function(el) {
+                        if (el.product === filter) {
+                            filteredData.push(el);
+                        }
+                    });
+                    return filteredData.length;
+                }
+            } else {
+                return 0;
+            }
+        },
+        groupFolder: function() {
+            return this.$parent.groupFolder;
+        },
+        thumbFolder: function() {
+            return 'zoom/';
+        },
+        index: function() {
+            if (this.$route.params.picId) {
+                return parseInt(this.$route.params.picId);
+            } else {
+                return 0;
+            }
+        },
+        currentPic: function() {
+            if (this.zoomPics) {
+                var pic = this.zoomPics[this.index];
+                return pic;
+            } else {
+                return '';
+            }
+        },
+        nextpic: function() {
+            var check = this.lengthZoomPics;
+            if ((this.index + 1) === check) {
+                return 0;
+            } else {
+                return this.index + 1;
+            }
+        },
+        prevpic: function() {
+            var check = this.lengthZoomPics;
+            if (this.index === 0) {
+                return check - 1;
+            } else {
+                return this.index - 1;
+            }
+        },
+        zoomlink: function() {
+            return this.$parent.zoomlink;
+        },
+        imgClass: function() {
+            if (this.currentPic.portrait) {
+                return 'img_link_port';
+            } else {
+                return '';
+            }
+        },
+        popClass: function() {
+            if (this.currentPic.portrait) {
+                return 'popup_container_h';
+            } else {
+                return '';
+            }
+        }
+    },
+    methods: {
+        imgChange: function() {
+            $(".img_link_img").attr("src", "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
+            $('.img_link_img').removeClass('lazyloaded').addClass('lazyload');
+        },
+        details: function() {
+            $('.popup_details').slideToggle("fast");
+            $('.popup_details_top').slideToggle("fast");
+
+        },
+        swipe: function() {
+            var self = this;
+            var options = {
+                preventDefault: true
+            };
+            var myElement = document.getElementById('swipe_div');
+            var mc = new Hammer(myElement, options);
+            mc.on('swipeleft', function() {
+                var path = {
+                    path: self.zoomlink + self.nextpic
+                };
+                router.go(path);
+                self.imgChange();
+            });
+            mc.on('swiperight', function() {
+                var path = {
+                    path: self.zoomlink + self.prevpic
+                };
+                router.go(path);
+                self.imgChange();
+            });
+
+        }
+    }
+
+});
 
 
 var Map = Vue.extend({
@@ -344,7 +586,17 @@ router.map({
                 component: ShopVue
             },
             '/craft/:filter': {
-                component: CraftVue
+                component: CraftVue,
+                subRoutes: {
+                    '/': {
+                        component: {
+                            template: ''
+                        }
+                    },
+                    '/:picId': {
+                        component: ZoomVue
+                    }
+                }
             },
             '/assortment': {
                 component: AssortVue
