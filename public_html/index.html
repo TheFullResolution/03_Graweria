@@ -5,7 +5,8 @@
     <meta charset="utf-8" />
     <title>Graweria.pl</title>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Grawer">
+    <meta name="description" content="Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni.">
+    <link rel="alternate" href="http://graweria.pl/en" hreflang="en" />
     <!-- build:css -->
     <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
     <link href="css/app.css" rel="stylesheet" type="text/css"/>
@@ -24,9 +25,12 @@
                 <a v-link="{path: '/map'}" class="links maplink">Mapa Dojazdu</a>
             </div>
         </div>
+        <div class="language">
+            <a href="en/#!/info">English</a>
+        </div>
     </header>
 
-    <start-page v-show="displayVideo " class="videotrans" transition="videotrans" transition-mode="out-in"></start-page>
+    <start-page v-if="displayVideo " class="videotrans" transition="videotrans" transition-mode="out-in"></start-page>
     <section class="app">
         <router-view class="fade" transition="fade" transition-mode="out-in"></router-view>
     </section>

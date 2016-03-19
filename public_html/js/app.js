@@ -15,7 +15,6 @@ Vue.component('start-page', {
     },
     methods: {
         runVideo: function() {
-
             var supportsVideoElement = !!document.createElement('video').canPlayType;
             if (supportsVideoElement) {
                 var backVideo = document.createElement("video");
@@ -58,6 +57,7 @@ Vue.component('start-page', {
         },
         putVideodown: function() {
             $('#back_video').remove();
+            $('#video_div').off('mousewheel');
         }
     }
 });
@@ -92,6 +92,9 @@ var App = Vue.extend({
             } else {
                 return false;
             }
+        },
+        langText: function() {
+            return 'english';
         },
         thumbFolder: function() {
             var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
@@ -214,26 +217,21 @@ var Offer = Vue.extend({
                 $element2 = $('.link_offer_div'),
                 el2ClassHide = 'link_offer_hide',
                 throttleTimeout = 300,
-                $element = $(elSelector),
-                $elFilters = $('.offer_filters_div'),
-                elFiltersClass = 'offer_filters_scroll';
+                $element = $(elSelector);
 
             if (!$element.length) return true;
 
             var $window = $(window),
-                wHeight = 0,
                 wScrollCurrent = 0,
                 wScrollBefore = 0,
                 wScrollDiff = 0,
                 $document = $(document),
-                dHeight = 0,
-
                 throttle = function(delay, fn) {
                     var last, deferTimer;
                     return function() {
                         var context = this,
                             args = arguments,
-                            now = +new Date;
+                            now = +new Date();
                         if (last && now < last + delay) {
                             clearTimeout(deferTimer);
                             deferTimer = setTimeout(function() {
@@ -248,27 +246,18 @@ var Offer = Vue.extend({
                 };
 
             $window.on('scroll', throttle(throttleTimeout, function() {
-                dHeight = $document.height();
-                wHeight = $window.height();
                 wScrollCurrent = $window.scrollTop();
                 wScrollDiff = wScrollBefore - wScrollCurrent;
                 if (wScrollCurrent <= 300) {
                     $element.removeClass(elClassShow);
                     $element2.removeClass(el2ClassHide);
+
                 } else if (wScrollDiff < 0) // scrolled down
                 {
 
                     $element.addClass(elClassShow);
                     $element2.addClass(el2ClassHide);
                 }
-
-                if (wScrollCurrent >= 300) {
-                    $elFilters.addClass(elFiltersClass);
-                } else {
-                    $elFilters.removeClass(elFiltersClass);
-                }
-
-                wScrollBefore = wScrollCurrent;
             }));
 
         }
@@ -305,7 +294,8 @@ var ShopVue = Vue.extend({
         },
         zoomlink: function() {
             return '/offer/shop/all/';
-        }
+        },
+
 
     }
 });
@@ -315,6 +305,7 @@ var CraftVue = Vue.extend({
     ready: function() {
         window.scrollTo(0, 0);
         $('.craft_link').addClass('link_offer-active');
+        this.stickyfilters(jQuery, window, document);
         this.$parent.show = true;
     },
     beforeDestroy: function() {
@@ -349,6 +340,51 @@ var CraftVue = Vue.extend({
         zoomlink: function() {
             return '/offer/craft/' + this.$route.params.filter + '/';
         }
+    },
+    methods: {
+        stickyfilters: function($, window, document, undefined) {
+            'use strict';
+
+            var throttleTimeout = 300,
+                $elFilters = $('.offer_filters_div'),
+                elFiltersClass = 'offer_filters_scroll';
+
+            if (!$elFilters.length) return true;
+
+            var $window = $(window),
+                wScrollCurrent = 0,
+                $document = $(document),
+
+                throttle = function(delay, fn) {
+                    var last, deferTimer;
+                    return function() {
+                        var context = this,
+                            args = arguments,
+                            now = +new Date();
+                        if (last && now < last + delay) {
+                            clearTimeout(deferTimer);
+                            deferTimer = setTimeout(function() {
+                                last = now;
+                                fn.apply(context, args);
+                            }, delay);
+                        } else {
+                            last = now;
+                            fn.apply(context, args);
+                        }
+                    };
+                };
+
+            $window.on('scroll', throttle(throttleTimeout, function() {
+                wScrollCurrent = $window.scrollTop();
+
+                if (wScrollCurrent >= 300) {
+                    $elFilters.addClass(elFiltersClass);
+                } else {
+                    $elFilters.removeClass(elFiltersClass);
+                }
+            }));
+
+        }
 
     }
 });
@@ -358,6 +394,7 @@ var AssortVue = Vue.extend({
     ready: function() {
         window.scrollTo(0, 0);
         $('.assortment_link').addClass('link_offer-active');
+        this.stickyfilters(jQuery, window, document);
     },
     beforeDestroy: function() {
         $('.assortment_link').removeClass('link_offer-active');
@@ -391,7 +428,51 @@ var AssortVue = Vue.extend({
         zoomlink: function() {
             return '/offer/assortment/' + this.$route.params.filter + '/';
         }
+    },
+    methods: {
+        stickyfilters: function($, window, document, undefined) {
+            'use strict';
 
+            var throttleTimeout = 300,
+                $elFilters = $('.offer_filters_div'),
+                elFiltersClass = 'offer_filters_scroll';
+
+            if (!$elFilters.length) return true;
+
+            var $window = $(window),
+                wScrollCurrent = 0,
+                $document = $(document),
+
+                throttle = function(delay, fn) {
+                    var last, deferTimer;
+                    return function() {
+                        var context = this,
+                            args = arguments,
+                            now = +new Date();
+                        if (last && now < last + delay) {
+                            clearTimeout(deferTimer);
+                            deferTimer = setTimeout(function() {
+                                last = now;
+                                fn.apply(context, args);
+                            }, delay);
+                        } else {
+                            last = now;
+                            fn.apply(context, args);
+                        }
+                    };
+                };
+
+            $window.on('scroll', throttle(throttleTimeout, function() {
+                wScrollCurrent = $window.scrollTop();
+
+                if (wScrollCurrent >= 300) {
+                    $elFilters.addClass(elFiltersClass);
+                } else {
+                    $elFilters.removeClass(elFiltersClass);
+                }
+            }));
+
+        }
     }
 });
 
