@@ -68,7 +68,7 @@ var App = Vue.extend({
             folders: {
                 "assortment": "img/offer/assortment/",
                 "craft": "img/offer/craft/",
-                "shop": "img/offer/shop/inside/",
+                "shop": "img/offer/shop/",
             },
             mapSuccess: false,
             selected: '',
@@ -150,7 +150,10 @@ var Info = Vue.extend({
 
 var VideoPopup = Vue.extend({
     template: '#videopopup_template',
-    ready: function() {}
+    ready: function() {
+        $('body').css('overflow-y', 'hidden');
+        $('body').addClass('disable-scrolling');
+    }
 });
 
 
@@ -193,12 +196,12 @@ var Offer = Vue.extend({
         },
         forceFilters: function() {
             var self = this;
-            $( window ).resize(function() {
-                windowCheck = $( window ).width();
-            if(windowCheck > 650){
-                self.show = true;
-            }
-        });
+            $(window).resize(function() {
+                windowCheck = $(window).width();
+                if (windowCheck > 650) {
+                    self.show = true;
+                }
+            });
         },
         toggleFilter: function() {
             this.show = !this.show;
@@ -210,8 +213,10 @@ var Offer = Vue.extend({
                 elClassShow = 'link_offer_show',
                 $element2 = $('.link_offer_div'),
                 el2ClassHide = 'link_offer_hide',
-                throttleTimeout = 500,
-                $element = $(elSelector);
+                throttleTimeout = 300,
+                $element = $(elSelector),
+                $elFilters = $('.offer_filters_div'),
+                elFiltersClass = 'offer_filters_scroll';
 
             if (!$element.length) return true;
 
@@ -247,7 +252,7 @@ var Offer = Vue.extend({
                 wHeight = $window.height();
                 wScrollCurrent = $window.scrollTop();
                 wScrollDiff = wScrollBefore - wScrollCurrent;
-                if (wScrollCurrent <= 200) {
+                if (wScrollCurrent <= 300) {
                     $element.removeClass(elClassShow);
                     $element2.removeClass(el2ClassHide);
                 } else if (wScrollDiff < 0) // scrolled down
@@ -255,6 +260,12 @@ var Offer = Vue.extend({
 
                     $element.addClass(elClassShow);
                     $element2.addClass(el2ClassHide);
+                }
+
+                if (wScrollCurrent >= 300) {
+                    $elFilters.addClass(elFiltersClass);
+                } else {
+                    $elFilters.removeClass(elFiltersClass);
                 }
 
                 wScrollBefore = wScrollCurrent;
@@ -276,11 +287,24 @@ var ShopVue = Vue.extend({
     computed: {
         pics: function() {
             if (this.$parent.offerDataReady.folders) {
-                return this.$parent.offerDataReady.folders.shop.inside;
+                var object = this.$parent.offerDataReady.folders.shop;
+                var data = [];
+                object.forEach(function(group) {
+                    group.list.forEach(function(el) {
+                        data.push(el);
+                    });
+                });
+                return data;
             }
         },
-        picFolder: function() {
-            return this.$parent.folders.shop + this.$parent.thumbFolder;
+        groupFolder: function() {
+            return this.$parent.folders.shop;
+        },
+        thumbFolder: function() {
+            return this.$parent.thumbFolder;
+        },
+        zoomlink: function() {
+            return '/offer/shop/all/';
         }
 
     }
@@ -338,13 +362,45 @@ var AssortVue = Vue.extend({
     beforeDestroy: function() {
         $('.assortment_link').removeClass('link_offer-active');
     },
+    computed: {
+        pics: function() {
+            if (this.$parent.offerDataReady.folders) {
+                var object = this.$parent.offerDataReady.folders.assortment;
+                var data = [];
+                object.forEach(function(group) {
+                    group.list.forEach(function(el) {
+                        data.push(el);
+                    });
+                });
+                return data;
+            }
+        },
+        groupFolder: function() {
+            return this.$parent.folders.assortment;
+        },
+        thumbFolder: function() {
+            return this.$parent.thumbFolder;
+        },
+        filterVal: function() {
+            if (this.$route.params.filter === 'all') {
+                return '';
+            } else {
+                return this.$route.params.filter;
+            }
+        },
+        zoomlink: function() {
+            return '/offer/assortment/' + this.$route.params.filter + '/';
+        }
+
+    }
 });
 
 
 var ZoomVue = Vue.extend({
     template: '#picture_zoom_template',
     ready: function() {
-
+        $('body').css('overflow-y', 'hidden');
+        $('body').addClass('disable-scrolling');
         this.swipe();
         this.$watch(function() {
                 return this.index;
@@ -571,7 +627,12 @@ router.map({
         subRoutes: {
             '/': {
                 component: {
-                    template: ''
+                    template: '',
+                    ready: function() {
+                        $('body').css('overflow-y', 'auto');
+                        $('body').removeClass('disable-scrolling');
+                    }
+
                 }
             },
             '/video': {
@@ -582,15 +643,16 @@ router.map({
     '/offer': {
         component: Offer,
         subRoutes: {
-            '/shop': {
-                component: ShopVue
-            },
-            '/craft/:filter': {
-                component: CraftVue,
+            '/shop/:filter': {
+                component: ShopVue,
                 subRoutes: {
                     '/': {
                         component: {
-                            template: ''
+                            template: '',
+                            ready: function() {
+                                $('body').css('overflow-y', 'auto');
+                                $('body').removeClass('disable-scrolling');
+                            }
                         }
                     },
                     '/:picId': {
@@ -598,8 +660,39 @@ router.map({
                     }
                 }
             },
-            '/assortment': {
-                component: AssortVue
+            '/craft/:filter': {
+                component: CraftVue,
+                subRoutes: {
+                    '/': {
+                        component: {
+                            template: '',
+                            ready: function() {
+                                $('body').css('overflow-y', 'auto');
+                                $('body').removeClass('disable-scrolling');
+                            }
+                        }
+                    },
+                    '/:picId': {
+                        component: ZoomVue
+                    }
+                }
+            },
+            '/assortment/:filter': {
+                component: AssortVue,
+                subRoutes: {
+                    '/': {
+                        component: {
+                            template: '',
+                            ready: function() {
+                                $('body').css('overflow-y', 'auto');
+                                $('body').removeClass('disable-scrolling');
+                            }
+                        }
+                    },
+                    '/:picId': {
+                        component: ZoomVue
+                    }
+                }
             }
         }
     },
@@ -609,3 +702,19 @@ router.map({
 });
 
 router.start(App, '#app', function() {});
+
+document.ontouchmove = function(event) {
+    var isTouchMoveAllowed = true,
+        target = event.target;
+    while (target !== null) {
+        if (target.classList && target.classList.contains('disable-scrolling')) {
+            isTouchMoveAllowed = false;
+            break;
+        }
+        target = target.parentNode;
+    }
+
+    if (!isTouchMoveAllowed) {
+        event.preventDefault();
+    }
+};

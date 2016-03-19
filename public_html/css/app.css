@@ -231,39 +231,9 @@ header {
     text-decoration: underline;
 }
 
-.popup_mask {
-    overflow: scroll;
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc(100% + 1px);
-    display: table;
-    background: rgba(226, 226, 226, 0.8);
-    transition: all .5s ease;
-    -webkit-transition: all .5s ease;
-}
-
-.popup_container {
-    position: relative;
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    transition: all .7s ease;
-    -webkit-transition: all .7s ease;
-}
-
 .popup_container iframe {
     height: 56vmin;
     width: 100vmin;
-}
-
-.popup-enter,
-.popup-leave {
-    opacity: 0;
-    -webkit-transform: translate(0, -500px);
-    transform: translate(0, -500px);
 }
 
 .close_button {
@@ -389,9 +359,8 @@ header {
     width: auto;
     height: 220px;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 10px;
 }
-
 
 /*OFFER***Shop*****/
 .shop_div {
@@ -410,7 +379,6 @@ header {
 }
 
 /*OFFER***Craft&Assortment*****/
-
 .toggle_filters {
     width: 100%;
     display: none;
@@ -438,12 +406,23 @@ header {
 .offer_filters_container {
     flex: 0 0 25%;
     position: relative;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .offer_filters_div {
     display: flex;
     flex-direction: column;
+    position: absolute;
+    top: 0;
+    width: 180px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.offer_filters_scroll {
     position: fixed;
+    top: 50px;
 }
 
 .offer_filters_div a {
@@ -612,8 +591,47 @@ header {
 
 .popup-enter .popup_container,
 .popup-leave .popup_container {
-    -webkit-transform: scale(.1);
-    transform: scale(.1);
+    -webkit-transform: translate(0, -500px);
+    transform: translate(0, -500px);
+}
+
+.fade {
+    transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+}
+
+.fade-enter,
+.fade-leave {
+    opacity: 0;
+}
+
+.lazyloaded {
+    opacity: 1;
+}
+
+.move {
+    -webkit-transition: all .7s ease;
+    transition: all .7s ease;
+    opacity: 1;
+}
+
+.move-enter {
+    opacity: 0;
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+}
+
+.move-leave {
+    opacity: 0;
+    -webkit-transform: translateX(1000px);
+    transform: translateX(1000px);
+}
+
+@media screen and (max-width:900px) {
+    .pics {
+        height: 200px;
+    }
+
 }
 
 @media screen and (max-width:700px) {
@@ -631,27 +649,6 @@ header {
 
     .info_top p:first-of-type {
         font-size: 1.15em;
-    }
-
-}
-
-@media screen and (max-width:650px) {
-    .app {
-        padding: 0;
-    }
-
-    .info {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .links {
-        padding: 10px;
-        font-size: 1em;
-    }
-
-    .shop_div_item {
-        flex: 0 0 100%;
     }
 
     .link_offer_container {
@@ -674,6 +671,7 @@ header {
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         font-size: 0.9em;
     }
+
     .offer_content_div {
         display: block;
     }
@@ -681,12 +679,35 @@ header {
     .offer_content_item {
         max-width: 100%;
     }
+
     .pics {
         height: auto;
         width: 100%;
     }
+
     .toggle_filters {
         display: block;
+    }
+
+}
+
+@media screen and (max-width:650px) {
+    .app {
+        padding: 0;
+    }
+
+    .info {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .links {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .shop_div_item {
+        flex: 0 0 100%;
     }
 
 }
@@ -768,34 +789,32 @@ header {
 
 }
 
-.fade {
-    transition: all .5s ease;
-    -webkit-transition: all .5s ease;
-}
+@media screen and (max-height:450px) {
+    .banner {
+        width: 70px;
+        height: 70px;
+    }
 
-.fade-enter,
-.fade-leave {
-    opacity: 0;
-}
+    .links {
+        padding: 10px;
+        font-size: 1em;
+    }
 
-.lazyloaded {
-    opacity: 1;
-}
+    .header_div {
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
 
-.move {
-    -webkit-transition: all .7s ease;
-    transition: all .7s ease;
-    opacity: 1;
-}
+    header {
+        height: 100px;
+    }
 
-.move-enter {
-    opacity: 0;
-    -webkit-transform: translateX(-1000px);
-    transform: translateX(-1000px);
-}
+    .link_offer {
+        font-size: 1em;
+    }
 
-.move-leave {
-    opacity: 0;
-    -webkit-transform: translateX(1000px);
-    transform: translateX(1000px);
+    .link_offer_container {
+        margin-bottom: 30px;
+    }
+
 }

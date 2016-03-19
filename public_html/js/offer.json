@@ -612,6 +612,34 @@
                 "portrait": false
             }]
         }, {
+            "name": "ryngraf",
+            "list": [{
+                "name": "0001.jpg",
+                "product": "ryngraf",
+                "subgroup": "1",
+                "portrait": false
+            },{
+                "name": "0002.jpg",
+                "product": "ryngraf",
+                "subgroup": "1",
+                "portrait": false
+            },{
+                "name": "0003.jpg",
+                "product": "ryngraf",
+                "subgroup": "1",
+                "portrait": true
+            },{
+                "name": "0004.jpg",
+                "product": "ryngraf",
+                "subgroup": "1",
+                "portrait": false
+            },{
+                "name": "0005.jpg",
+                "product": "ryngraf",
+                "subgroup": "1",
+                "portrait": true
+            }]
+        }, {
             "name": "zippo",
             "list": [{
                 "name": "0001.jpg",
@@ -650,12 +678,13 @@
                 "portrait": false
             }]
         }],
-        "shop": {
-            "inside": [{
+        "shop": [{
+            "name": "herby",
+            "list": [{
                 "name": "0001.jpg",
                 "product": "inside",
                 "subgroup": "1",
-                "portrait": false
+                "portrait": true
             }, {
                 "name": "0003.jpg",
                 "product": "inside",
@@ -665,7 +694,7 @@
                 "name": "0004.jpg",
                 "product": "inside",
                 "subgroup": "1",
-                "portrait": false
+                "portrait": true
             }, {
                 "name": "0005.jpg",
                 "product": "inside",
@@ -685,8 +714,8 @@
                 "name": "0008.jpg",
                 "product": "inside",
                 "subgroup": "1",
-                "portrait": false
+                "portrait": true
             }]
-        }
+        }]
     }
 }

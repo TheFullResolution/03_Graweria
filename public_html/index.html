@@ -20,7 +20,7 @@
             <img src="img/banner.png" alt="banner" class="banner"/>
             <div class="links_div">
                 <a v-link="{path: '/info'}" class="links infolink">Dane Firmy</a>
-                <a v-link="{path: '/offer/shop'}" class="links offerlink">Nasza Oferta</a>
+                <a v-link="{path: '/offer/shop/all'}" class="links offerlink">Nasza Oferta</a>
                 <a v-link="{path: '/map'}" class="links maplink">Mapa Dojazdu</a>
             </div>
         </div>
@@ -108,25 +108,25 @@
     <div>
         <div class="link_offer_container">
             <div class="link_offer_div">
-                <a v-link="{path: '/offer/shop'}"  class="link_offer shop_link">
+                <a v-link="{path: '/offer/shop/all'}"  class="link_offer shop_link">
                     Sklep
                 </a>
                 <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
                     Rękodzieło
                 </a>
-                <a v-link="{path: '/offer/assortment'}"  class="link_offer assortment_link">
+                <a v-link="{path: '/offer/assortment/ikony'}"  class="link_offer assortment_link">
                     Produkty
                 </a>
             </div>
             <div class="link_offer_sticky">
                 <div class="link_offer_big">
-                    <a v-link="{path: '/offer/shop'}"  class="link_offer shop_link">
+                    <a v-link="{path: '/offer/shop/all'}"  class="link_offer shop_link">
                         Sklep
                     </a>
                     <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
                         Rękodzieło
                     </a>
-                    <a v-link="{path: '/offer/assortment'}"  class="link_offer assortment_link">
+                    <a v-link="{path: '/offer/assortment/ikony'}"  class="link_offer assortment_link">
                         Produkty
                     </a>
                     <img src="img/up.png" alt="up button" class="offer_up" v-on:click="upClick">
@@ -144,39 +144,42 @@
 <template id="shop_template">
     <div class="shop_div">
         <figure v-for="pic in pics" class="shop_div_item">
-            <a href="#!">
+            <a v-link="{path: zoomlink + $index}">
                 <div class="img_div">
                     <img 
                     class="lazyload pics"
                     data-expand="-100"
                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                    data-src="{{picFolder + pic.name}}"
+                    data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}"
                     >
                 </div>
             </a>
         </figure>
+        <router-view></router-view>
     </div>
 </template>
 
 <template id="craft_template">
     <div class="offer_container">
         <div class="offer_filters_container">
-        <div class="show_filters" v-show="!$parent.show"> 
+            <div class="show_filters" v-show="!$parent.show"> 
                 <div class="toggle_filters" v-on:click="$parent.toggleFilter">
                     <img src="img/right.png" class="arrow_filters">
                 </div>
             </div>
+
             <div class="offer_filters_div" v-show="$parent.show">
                 <div class="toggle_filters" v-on:click="$parent.toggleFilter">
                     <img src="img/left.png" class="arrow_filters">
                 </div>
-                <a v-link="{path: '/offer/craft/herby'}" v-on:click="$parent.filterClick"> Herby, monogramy</a>
+                <a v-link="{path: '/offer/craft/herby'}" v-on:click="$parent.filterClick">Herby, monogramy</a>
                 <a v-link="{path: '/offer/craft/tablice'}" v-on:click="$parent.filterClick">Tablice</a>
                 <a v-link="{path: '/offer/craft/tabliczki'}" v-on:click="$parent.filterClick">Tabliczki okolicznościowe</a>
                 <a v-link="{path: '/offer/craft/dzwony'}" v-on:click="$parent.filterClick">Dzwony</a>
                 <a v-link="{path: '/offer/craft/male'}" v-on:click="$parent.filterClick">Małe przedmioty</a>
                 <a v-link="{path: '/offer/craft/all'}" v-on:click="$parent.filterClick">Wszystko</a>
             </div>
+
         </div>
         <div class="offer_content_div">
             <figure v-for="pic in pics | filterBy filterVal in 'product'" 
@@ -195,20 +198,45 @@
 </div>
 </template>
 
-<template id="assortment_template">
-    <div>
-        <div class="offer_filters_div">
-            <a href>Ikony</a>
-            <a href>Repliki broni białej</a>
-            <a href>Artykuły pamiątkowe</a>
-            <a href>Chrzest i I Komunia Święta</a>
-            <a href>Figurki</a>
-            <a href>Ryngrafy</a>
-            <a href>Zippo</a>
-        </div>        
-        <div class="offer_content_div">
+<template id="assortment_template">      
+    <div class="offer_container">
+        <div class="offer_filters_container">
+            <div class="show_filters" v-show="!$parent.show"> 
+                <div class="toggle_filters" v-on:click="$parent.toggleFilter">
+                    <img src="img/right.png" class="arrow_filters">
+                </div>
+            </div>
+
+            <div class="offer_filters_div" v-show="$parent.show">
+                <div class="toggle_filters" v-on:click="$parent.toggleFilter">
+                    <img src="img/left.png" class="arrow_filters">
+                </div>
+                <a v-link="{path: '/offer/assortment/ikony'}" v-on:click="$parent.filterClick">Ikony</a>
+                <a v-link="{path: '/offer/assortment/biala'}" v-on:click="$parent.filterClick">
+                    Repliki broni białej</a>
+                    <a v-link="{path: '/offer/assortment/male'}" v-on:click="$parent.filterClick">Artykuły pamiątkowe</a>
+                    <a v-link="{path: '/offer/assortment/chrzest'}" v-on:click="$parent.filterClick">Chrzest i I Komunia</a>
+                    <a v-link="{path: '/offer/assortment/figurki'}" v-on:click="$parent.filterClick">Figurki</a>
+                    <a v-link="{path: '/offer/assortment/ryngraf'}" v-on:click="$parent.filterClick">Ryngrafy</a>
+                    <a v-link="{path: '/offer/assortment/zippo'}" v-on:click="$parent.filterClick">Zippo</a>
+                    <a v-link="{path: '/offer/assortment/all'}" v-on:click="$parent.filterClick">Wszystko</a>
+                </div>
+
+            </div>
+            <div class="offer_content_div">
+                <figure v-for="pic in pics | filterBy filterVal in 'product'" 
+                class="offer_content_item">
+                <a v-link="{path: zoomlink + $index}">
+                    <img 
+                    class="lazyload pics"
+                    data-expand="-100"
+                    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}">
+                </a>
+            </figure>
 
         </div>
+        <router-view></router-view>
     </div>
 </template>
 
