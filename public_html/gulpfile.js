@@ -187,7 +187,6 @@ gulp.task("concatScripts", function () {
     ])
             .pipe(maps.init())
             .pipe(concat('app.concat.js'))
-            .pipe(maps.write('./'))
             .pipe(gulp.dest('js'));
 });
 gulp.task("minifyScripts", ["concatScripts"], function () {
@@ -214,13 +213,15 @@ gulp.task("minifyCSS", ["concatCSS"], function () {
 });
 gulp.task("build", ['minifyScripts', 'minifyCSS'], function () {
     return gulp.src(["css/app.min.css", "js/app.min.js",
-        "img/**", "fonts/**", "favicon.ico"], {base: './'})
+        "img/**", "fonts/**", "favicon.ico", "js/lazysizes.min.js",
+        "js/offer.json", "video/**"], {base: './'})
             .pipe(gulp.dest('dist'));
 });
 
 gulp.task("buildEn", ['build'], function () {
     return gulp.src(["css/app.min.css", "js/app.min.js",
-        "img/**", "fonts/**", "favicon.ico"], {base: './'})
+        "img/**", "fonts/**", "favicon.ico", "js/lazysizes.min.js",
+        "js/offer.json", "video/**"], {base: './'})
             .pipe(gulp.dest('dist/en'));
 });
 

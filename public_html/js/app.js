@@ -6,10 +6,6 @@ Vue.component('start-page', {
         $('#video_div').addClass('video_div_background');
         if (this.$parent.displayVideo) {
             this.runVideo();
-        } else if (this.$route.path === '/') {
-            router.go({
-                path: '/info'
-            });
         }
         this.scrollVideodown();
     },
@@ -79,6 +75,7 @@ var App = Vue.extend({
         this.downloadMapAPI();
         this.downloadlazyload();
         this.fetchData();
+        this.checklink();
     },
     computed: {
         displayVideo: function() {
@@ -110,6 +107,13 @@ var App = Vue.extend({
         }
     },
     methods: {
+        checklink: function() {
+            if (this.$route.path === '/' && !this.displayVideo) {
+                router.go({
+                    path: '/info'
+                });
+            }
+        },
         downloadMapAPI: function() {
             var self = this;
             var url = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDGUROHjSwHDzFbfvD07N-47_bq3bdgaOs&libraries=places';
