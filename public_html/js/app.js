@@ -729,7 +729,7 @@ router.map({
                 subRoutes: {
                     '/': {
                         component: {
-                            template: '',
+                            template: '<div></div>',
                             ready: function() {
                                 $('body').css('overflow-y', 'auto');
                                 $('body').removeClass('disable-scrolling');
@@ -746,7 +746,7 @@ router.map({
                 subRoutes: {
                     '/': {
                         component: {
-                            template: '',
+                            template: '<div></div>',
                             ready: function() {
                                 $('body').css('overflow-y', 'auto');
                                 $('body').removeClass('disable-scrolling');
@@ -763,7 +763,7 @@ router.map({
                 subRoutes: {
                     '/': {
                         component: {
-                            template: '',
+                            template: '<div></div>',
                             ready: function() {
                                 $('body').css('overflow-y', 'auto');
                                 $('body').removeClass('disable-scrolling');

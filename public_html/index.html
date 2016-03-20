@@ -39,7 +39,7 @@
 
 
 
-    <template id="start_page_template">
+    <script type="text/x-template" id="start_page_template">
         <div id="video_div" class="video_div">
             <a v-link="{path: '/info'}" class="link_content" v-on:click="putVideodown">
                 <div class="content"><img src="img/banner.png" alt="banner"/>
@@ -47,9 +47,9 @@
                 </div>
             </a>
         </div>
-    </template>
+    </script>
 
-    <template  id="info_template">
+    <script type="text/x-template" id="info_template">
         <div class="info">
             <div class="info_top">
                 <h1>Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni.</h1>
@@ -84,9 +84,9 @@
                 </a>
             </div>
         </div>
-    </template>
+      </script>
 
-    <template id="videopopup_template">
+    <script type="text/x-template" id="videopopup_template">
         <div class="popup_mask" transition="popup">
             <div class="popup_container">
                 <a v-link="{path: '/info'}" class="close_button">
@@ -95,9 +95,9 @@
                 <iframe  src="https://www.youtube.com/embed/aErESYSH0EQ?showinfo=0" allowfullscreen></iframe>
             </div>
         </div>
-    </template>
+      </script>
 
-    <template id="map_template">
+    <script type="text/x-template" id="map_template">
         <div style="height: 100%">
             <a href="https://www.google.com/maps/place/Grawer/@54.5125005,18.5375007,17z/data=!3m1!4b1!4m2!3m1!1s0x46fda73195e00d65:0xa620abc7320fac9f?hl=pl-PL"
             class="link_to_map"
@@ -106,9 +106,9 @@
         </a>
         <div id="map_div" class="map">Sorry, no map</div>
     </div>
-</template>
+  </script>
 
-<template id="offer_template">
+<script type="text/x-template" id="offer_template">
     <div>
         <div class="link_offer_container">
             <div class="link_offer_div">
@@ -137,15 +137,14 @@
                 </div>
 
             </div>
-
         </div>
         <div class="offer_sections">
             <router-view class="move" transition="move" transition-mode="out-in"></router-view>
         </div>
     </div>
-</template>
+  </script>
 
-<template id="shop_template">
+<script type="text/x-template" id="shop_template">
     <div class="shop_div">
         <figure v-for="pic in pics" class="shop_div_item">
             <a v-link="{path: zoomlink + $index}">
@@ -161,9 +160,9 @@
         </figure>
         <router-view></router-view>
     </div>
-</template>
+  </script>
 
-<template id="craft_template">
+<script type="text/x-template" id="craft_template">
     <div class="offer_container">
         <div class="offer_filters_container">
             <div class="show_filters" v-show="!$parent.show"> 
@@ -171,7 +170,6 @@
                     <img src="img/right.png" class="arrow_filters">
                 </div>
             </div>
-
             <div class="offer_filters_div" v-show="$parent.show">
                 <div class="toggle_filters" v-on:click="$parent.toggleFilter">
                     <img src="img/left.png" class="arrow_filters">
@@ -183,7 +181,6 @@
                 <a v-link="{path: '/offer/craft/male'}" v-on:click="$parent.filterClick">Małe przedmioty</a>
                 <a v-link="{path: '/offer/craft/all'}" v-on:click="$parent.filterClick">Wszystko</a>
             </div>
-
         </div>
         <div class="offer_content_div">
             <figure v-for="pic in pics | filterBy filterVal in 'product'" 
@@ -200,9 +197,9 @@
     </div>
     <router-view></router-view>
 </div>
-</template>
+  </script>
 
-<template id="assortment_template">      
+<script type="text/x-template" id="assortment_template">      
     <div class="offer_container">
         <div class="offer_filters_container">
             <div class="show_filters" v-show="!$parent.show"> 
@@ -210,7 +207,6 @@
                     <img src="img/right.png" class="arrow_filters">
                 </div>
             </div>
-
             <div class="offer_filters_div" v-show="$parent.show">
                 <div class="toggle_filters" v-on:click="$parent.toggleFilter">
                     <img src="img/left.png" class="arrow_filters">
@@ -242,9 +238,9 @@
         </div>
         <router-view></router-view>
     </div>
-</template>
+  </script>
 
-<template id="picture_zoom_template">
+<script type="text/x-template" id="picture_zoom_template">
     <div class="popup_mask" transition="popup"  id="swipe_div">
         <div class="popup_container" >
             <div class="popup_details_top">
@@ -268,8 +264,7 @@
             v-bind:class="imgClass"
             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
             data-src="{{groupFolder + currentPic.product + '/' + thumbFolder + currentPic.name}}"
-            >
-            
+            >      
         </div>
         <a v-link ="{path: zoomlink + nextpic}"
         class="arrows right">
@@ -278,13 +273,13 @@
 </div>
 </div>
 </div>
-
-</template>
-
+  </script>
+<!-- build:js -->
 <script src="js/jquery-2.2.1.js" type="text/javascript"></script>
 <script src="js/hammer.min.js" type="text/javascript"></script>
 <script src="js/vue.js" type="text/javascript"></script>
 <script src="js/vue-router.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
+<!-- endbuild -->
 </body>
 </html>
