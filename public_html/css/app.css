@@ -37,6 +37,8 @@ body {
 
 body {
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /*VIDEO*/
@@ -184,13 +186,26 @@ header {
 }
 
 .app {
-    height: calc(100% - 180px);
-    max-width: 100%;
+    flex: 1 0 auto;
     padding-left: 25px;
     padding-right: 25px;
+    padding-bottom: 150px;
     box-sizing: border-box;
+    width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+}
+
+footer {
+    font-family: cabinregular;
+    font-size: 0.7em;
+    text-align: center;
+    padding-bottom: 10px;
+    height: 20px;
+}
+
+footer a {
+    color: rgb(044, 062, 080);
 }
 
 /*INFO*****************************************/
@@ -209,10 +224,6 @@ header {
 
 .info_top p {
     display: inline;
-}
-
-.info_top p:first-of-type {
-    font-size: 1.25em;
 }
 
 .info_top {
@@ -273,10 +284,6 @@ header {
     -webkit-flex: 2 0 auto;
         -ms-flex: 2 0 auto;
             flex: 2 0 auto;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
 }
 
 .info_details p {
@@ -313,9 +320,15 @@ header {
 }
 
 /*MAP*****************************************/
+.map_container {
+    height: 50vh;
+    min-height: 50vh;
+    width: 100%;
+}
+
 .map {
     width: 100%;
-    height: 70%;
+    height: 100%;
     min-height: 250px;
 }
 
@@ -640,6 +653,8 @@ header {
 
 .img_link_img {
     width: 100%;
+    max-height: 100%;
+    max-width: 100%;
     -webkit-transition-delay: 0.3s;
     transition-delay: 0.3s;
     transition: all .5s ease-in-out;

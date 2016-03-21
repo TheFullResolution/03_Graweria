@@ -35,7 +35,9 @@
         <router-view class="fade" transition="fade" transition-mode="out-in"></router-view>
     </section>
 
-
+    <footer>
+    <p>Page by <a href="https://www.thefullresolution.com/">theFullResolution.</a></p>
+    </footer>
 
 
 
@@ -53,7 +55,7 @@
         <div class="info">
             <div class="info_top">
                 <h1>Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni.</h1>
-                <p>50 lat gwarancji </p> <p>na ręcznie grawerowane obrączki.
+                <p>50 lat gwarancji na ręcznie grawerowane obrączki.
                 Jest to wymiar rzemiosła, które oferuje Państwu nasza firma.
                 Firma, której korzenie sięgają Pracowni Grawerskiej powstałej
                 w Gdyni w pierwszych latach powojennych.</p>
@@ -63,14 +65,15 @@
                 <div class="info_details">
                     <div class="info_details_1">
                         <h3>Grawer</h3>
-                        <p>ul. Świętojańska 81, Gdynia</p>
+                        <p>ul. Świętojańska 81</p>
+                        <p>81-389 Gdynia</p>
                         <p><a href="tel:+48586200273">+48 58 620 02 73</a></p>
                         <p><a href="mailto:grawer.gdynia@interia.pl">grawer.gdynia@interia.pl</a></p>
                     </div>
                     <div class="info_details_2">
                         <h3>Godziny otwarcia:</h3>
-                        <p>Od poniedziałku do piątku: 11 - 18</p>
-                        <p>Sobota: 11 - 14</p>
+                        <p>Od poniedziałku do piątku: 11.00 - 18.00</p>
+                        <p>Sobota: 11.00 - 14.00</p>
                     </div>
                 </div>
                 <a href="#info/video" class="info_link_popup">
@@ -98,7 +101,7 @@
       </script>
 
     <script type="text/x-template" id="map_template">
-        <div style="height: 100%">
+        <div class="map_container">
             <a href="https://www.google.com/maps/place/Grawer/@54.5125005,18.5375007,17z/data=!3m1!4b1!4m2!3m1!1s0x46fda73195e00d65:0xa620abc7320fac9f?hl=pl-PL"
             class="link_to_map"
             target="blank">
@@ -116,7 +119,7 @@
                     Sklep
                 </a>
                 <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
-                    Rękodzieło
+                    Rzemiosło
                 </a>
                 <a v-link="{path: '/offer/assortment/ikony'}"  class="link_offer assortment_link">
                     Produkty
@@ -178,7 +181,7 @@
                 <a v-link="{path: '/offer/craft/tablice'}" v-on:click="$parent.filterClick">Tablice</a>
                 <a v-link="{path: '/offer/craft/tabliczki'}" v-on:click="$parent.filterClick">Tabliczki okolicznościowe</a>
                 <a v-link="{path: '/offer/craft/dzwony'}" v-on:click="$parent.filterClick">Dzwony</a>
-                <a v-link="{path: '/offer/craft/male'}" v-on:click="$parent.filterClick">Małe przedmioty</a>
+                <a v-link="{path: '/offer/craft/male'}" v-on:click="$parent.filterClick">Biżuteria, zegarki i inne</a>
                 <a v-link="{path: '/offer/craft/all'}" v-on:click="$parent.filterClick">Wszystko</a>
             </div>
         </div>
