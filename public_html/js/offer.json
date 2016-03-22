@@ -315,6 +315,15 @@
                 "subgroup": "1",
                 "portrait": true
             }]
+        }, {
+
+            "name": "obraczki",
+            "list": [{
+                "name": "0001.jpg",
+                "product": "obraczki",
+                "subgroup": "1",
+                "portrait": false
+            }]
         }],
         "assortment": [{
             "name": "biala",
@@ -618,22 +627,22 @@
                 "product": "ryngraf",
                 "subgroup": "1",
                 "portrait": false
-            },{
+            }, {
                 "name": "0002.jpg",
                 "product": "ryngraf",
                 "subgroup": "1",
                 "portrait": false
-            },{
+            }, {
                 "name": "0003.jpg",
                 "product": "ryngraf",
                 "subgroup": "1",
                 "portrait": true
-            },{
+            }, {
                 "name": "0004.jpg",
                 "product": "ryngraf",
                 "subgroup": "1",
                 "portrait": false
-            },{
+            }, {
                 "name": "0005.jpg",
                 "product": "ryngraf",
                 "subgroup": "1",
@@ -674,6 +683,22 @@
             }, {
                 "name": "0007.jpg",
                 "product": "zippo",
+                "subgroup": "1",
+                "portrait": false
+            }]
+        }, {
+            "name": "mw",
+            "list": [{
+                "name": "0001.jpg",
+                "product": "mw",
+                "subgroup": "1",
+                "portrait": false
+            }]
+        }, {
+            "name": "palna",
+            "list": [{
+                "name": "0001.jpg",
+                "product": "palna",
                 "subgroup": "1",
                 "portrait": false
             }]

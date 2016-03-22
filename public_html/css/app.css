@@ -300,6 +300,11 @@ footer a {
     text-decoration: underline;
 }
 
+.info_details  img {
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
 .popup_container iframe {
     height: 56vmin;
     width: 100vmin;
@@ -791,10 +796,6 @@ footer a {
         font-size: 0.95em;
     }
 
-    .info_top p:first-of-type {
-        font-size: 1.15em;
-    }
-
     .link_offer_container {
         margin-bottom: 10px;
     }
@@ -834,31 +835,7 @@ footer a {
     }
 }
 
-@media screen and (max-height:450px) {
 
-    .banner {
-        width: 70px;
-        height: 70px;
-    }
-
-    .links {
-        padding: 10px;
-        font-size: 1em;
-    }
-
-    .header_div {
-        padding-bottom: 10px;
-        padding-top: 10px;
-    }
-
-    .link_offer {
-        font-size: 1em;
-    }
-
-    .link_offer_container {
-        margin-bottom: 30px;
-    }
-}
 
 @media screen and (max-width:650px) {
 
@@ -923,6 +900,10 @@ footer a {
         flex-direction: row;
     }
 
+    .info_details_el {
+        flex: 0 1 50%;
+    }
+
     .info_pic {
         max-height: 220px;
     }
@@ -946,6 +927,10 @@ footer a {
         -webkit-justify-content: space-between;
         -ms-flex-pack: justify;
         justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    .links_div {
+        margin-right: auto;
     }
 
     .links {
@@ -966,23 +951,7 @@ footer a {
     }
 }
 
-@media screen and (max-width:400px) {
-
-    .header_div {
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-        flex-direction: row;
-        -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    }
-
-    .banner {
-        margin-left: auto;
-    }
-
+@media screen and (max-width:435px) {
     .info_details {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
@@ -1018,3 +987,28 @@ footer a {
     }
 }
 
+@media screen and (max-height:450px) {
+
+    .banner {
+        width: 70px;
+        height: 70px;
+    }
+
+    .links {
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .header_div {
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+
+    .link_offer {
+        font-size: 1em;
+    }
+
+    .link_offer_container {
+        margin-bottom: 30px;
+    }
+}
