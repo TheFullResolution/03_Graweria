@@ -704,6 +704,7 @@ var Map = Vue.extend({
     }
 });
 
+
 var router = new VueRouter({});
 
 router.map({
@@ -733,7 +734,7 @@ router.map({
                 subRoutes: {
                     '/': {
                         component: {
-                            template: '<div></div>',
+                            template: '',
                             ready: function() {
                                 $('body').css('overflow-y', 'auto');
                                 $('body').removeClass('disable-scrolling');
@@ -750,7 +751,7 @@ router.map({
                 subRoutes: {
                     '/': {
                         component: {
-                            template: '<div></div>',
+                            template: '',
                             ready: function() {
                                 $('body').css('overflow-y', 'auto');
                                 $('body').removeClass('disable-scrolling');
@@ -767,7 +768,7 @@ router.map({
                 subRoutes: {
                     '/': {
                         component: {
-                            template: '<div></div>',
+                            template: '',
                             ready: function() {
                                 $('body').css('overflow-y', 'auto');
                                 $('body').removeClass('disable-scrolling');

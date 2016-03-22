@@ -606,6 +606,7 @@ footer a {
      POPUP SECTION
      ************************/
 .popup_mask {
+    opacity: 1;
     position: fixed;
     z-index: 999;
     top: 0;
@@ -621,6 +622,7 @@ footer a {
 }
 
 .popup_container {
+    opacity: 1;
     position: static;
     display: table-cell;
     vertical-align: middle;
@@ -732,13 +734,12 @@ footer a {
 }
 
 .popup-leave { 
-    opacity: 0;
-    z-index: -999; /*firefox fix */
+    z-index: -999;
+    transform: scale(0.4);
+    opacity: 0;    
 }
 
-
-.popup-enter .popup_container,
-.popup-leave .popup_container {
+.popup-enter .popup_container {
     -webkit-transform: translate(0, -500px);
     transform: translate(0, -500px);
 }
