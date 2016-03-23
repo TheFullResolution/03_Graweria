@@ -214,10 +214,10 @@ footer {
     font-size: 0.7em;
     text-align: center;
     padding-bottom: 10px;
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 20px;
-        -ms-flex: 0 0 20px;
-            flex: 0 0 20px;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 20px;
+        -ms-flex: 1 1 20px;
+            flex: 1 1 20px;
 }
 
 footer a {
@@ -981,6 +981,13 @@ footer a {
         -webkit-flex-direction: column;
         -ms-flex-direction: column;
         flex-direction: column;
+    }
+
+    .info_details_el {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
     }
 }
 
