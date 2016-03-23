@@ -115,10 +115,10 @@ body {
 /*Header*********************************************/
 header {
     width: 100%;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 0 auto;
-        -ms-flex: 1 0 auto;
-            flex: 1 0 auto;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 auto;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
 }
 
 .header_div {
