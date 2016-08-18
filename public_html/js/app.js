@@ -1,4 +1,4 @@
-/* global google, Vue */
+/* global google, Vue $ jQuery Hammer VueRouter*/
 
 Vue.component('start-page', {
     template: '#start_page_template',
@@ -13,30 +13,30 @@ Vue.component('start-page', {
         runVideo: function() {
             var supportsVideoElement = !!document.createElement('video').canPlayType;
             if (supportsVideoElement) {
-                var backVideo = document.createElement("video");
-                backVideo.className = "video";
-                backVideo.id = "back_video";
+                var backVideo = document.createElement('video');
+                backVideo.className = 'video';
+                backVideo.id = 'back_video';
                 backVideo.loop = true;
-                backVideo.poster = "img/sequence01.jpg";
+                backVideo.poster = 'img/sequence01.jpg';
                 var canPlay_MP4 = backVideo.canPlayType('video/mp4; codecs="avc1.42E01E,mp4a.40.2"');
                 var canPlay_OGV = backVideo.canPlayType('video/ogg; codecs="theora,vorbis"');
                 var canPlay_WEMB = backVideo.canPlayType('video/webm; codecs="vp8,vorbis"');
-                var source = document.createElement("source");
+                var source = document.createElement('source');
                 if (canPlay_MP4.length > 0) {
-                    source.type = "video/mp4";
-                    source.src = "video/grawer_background.mp4";
+                    source.type = 'video/mp4';
+                    source.src = 'video/grawer_background.mp4';
                 } else if (canPlay_OGV.length > 0) {
-                    source.type = "video/ogg";
-                    source.src = "video/grawer_background.ogv";
+                    source.type = 'video/ogg';
+                    source.src = 'video/grawer_background.ogv';
                 } else if (canPlay_WEMB.length > 0) {
-                    source.type = "video/webm";
-                    source.src = "video/grawer_background.webm";
+                    source.type = 'video/webm';
+                    source.src = 'video/grawer_background.webm';
                 }
                 var videoDiv = $('#video_div');
                 backVideo.appendChild(source);
                 backVideo.load();
                 videoDiv.append(backVideo);
-                backVideoDom = document.getElementById('back_video');
+                var backVideoDom = document.getElementById('back_video');
                 backVideoDom.oncanplaythrough = function() {
                     backVideoDom.play();
                 };
@@ -62,9 +62,9 @@ var App = Vue.extend({
     data: function() {
         return {
             folders: {
-                "assortment": "img/offer/assortment/",
-                "craft": "img/offer/craft/",
-                "shop": "img/offer/shop/",
+                'assortment': 'img/offer/assortment/',
+                'craft': 'img/offer/craft/',
+                'shop': 'img/offer/shop/',
             },
             mapSuccess: false,
             selected: '',
@@ -96,9 +96,9 @@ var App = Vue.extend({
         thumbFolder: function() {
             var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
             if (width < 800) {
-                return "small/";
+                return 'small/';
             } else {
-                return "mid/";
+                return 'mid/';
             }
 
         },
@@ -126,7 +126,7 @@ var App = Vue.extend({
             });
         },
         downloadlazyload: function() {
-            var url = "js/lazysizes.min.js";
+            var url = 'js/lazysizes.min.js';
             $.ajax({
                 url: url,
                 dataType: 'script',
@@ -140,7 +140,7 @@ var App = Vue.extend({
         },
         fetchData: function() {
             var self = this;
-            $.getJSON("js/offer.json", function(json) {
+            $.getJSON('js/offer.json', function(json) {
                 self.offerdata = json;
             });
         }
@@ -204,7 +204,7 @@ var Offer = Vue.extend({
         forceFilters: function() {
             var self = this;
             $(window).resize(function() {
-                windowCheck = $(window).width();
+                var windowCheck = $(window).width();
                 if (windowCheck > 650) {
                     self.show = true;
                 }
@@ -213,7 +213,7 @@ var Offer = Vue.extend({
         toggleFilter: function() {
             this.show = !this.show;
         },
-        stickyHeader: function($, window, document, undefined) {
+        stickyHeader: function($, window) {
             'use strict';
 
             var elSelector = '.link_offer_sticky',
@@ -229,7 +229,6 @@ var Offer = Vue.extend({
                 wScrollCurrent = 0,
                 wScrollBefore = 0,
                 wScrollDiff = 0,
-                $document = $(document),
                 throttle = function(delay, fn) {
                     var last, deferTimer;
                     return function() {
@@ -346,7 +345,7 @@ var CraftVue = Vue.extend({
         }
     },
     methods: {
-        stickyfilters: function($, window, document, undefined) {
+        stickyfilters: function($, window) {
             'use strict';
 
             var throttleTimeout = 300,
@@ -357,7 +356,7 @@ var CraftVue = Vue.extend({
 
             var $window = $(window),
                 wScrollCurrent = 0,
-                $document = $(document),
+
 
                 throttle = function(delay, fn) {
                     var last, deferTimer;
@@ -434,7 +433,7 @@ var AssortVue = Vue.extend({
         }
     },
     methods: {
-        stickyfilters: function($, window, document, undefined) {
+        stickyfilters: function($, window) {
             'use strict';
 
             var throttleTimeout = 300,
@@ -445,7 +444,6 @@ var AssortVue = Vue.extend({
 
             var $window = $(window),
                 wScrollCurrent = 0,
-                $document = $(document),
 
                 throttle = function(delay, fn) {
                     var last, deferTimer;
@@ -488,7 +486,7 @@ var ZoomVue = Vue.extend({
         $('body').addClass('disable-scrolling');
         this.swipe();
         this.$watch(function() {
-                return this.index;
+                return this.currentPic;
             },
             function() {
                 this.imgChange();
@@ -497,9 +495,9 @@ var ZoomVue = Vue.extend({
     computed: {
         zoomPics: function() {
             if (this.$parent.pics) {
-                filter = this.$route.params.filter;
-                data = this.$parent.pics;
-                filteredData = [];
+                var filter = this.$route.params.filter;
+                var data = this.$parent.pics;
+                var filteredData = [];
 
                 if (filter === 'all') {
                     return data;
@@ -517,9 +515,9 @@ var ZoomVue = Vue.extend({
         },
         lengthZoomPics: function() {
             if (this.$parent.pics) {
-                filter = this.$route.params.filter;
-                data = this.$parent.pics;
-                filteredData = [];
+                var filter = this.$route.params.filter;
+                var data = this.$parent.pics;
+                var filteredData = [];
 
                 if (filter === 'all') {
                     return data.length;
@@ -592,12 +590,12 @@ var ZoomVue = Vue.extend({
     },
     methods: {
         imgChange: function() {
-            $(".img_link_img").attr("src", "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
+            $('.img_link_img').attr('src', 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
             $('.img_link_img').removeClass('lazyloaded').addClass('lazyload');
         },
         details: function() {
-            $('.popup_details').slideToggle("fast");
-            $('.popup_details_top').slideToggle("fast");
+            $('.popup_details').slideToggle('fast');
+            $('.popup_details_top').slideToggle('fast');
 
         },
         swipe: function() {
@@ -649,14 +647,14 @@ var Map = Vue.extend({
             var placeID = 'ChIJZQ3glTGn_UYRn6wPMserIKY';
             var mapDiv = document.getElementById('map_div');
             if (mapDiv && this.status) {
-                map = new google.maps.Map(mapDiv, {
+                var map = new google.maps.Map(mapDiv, {
                     center: {
                         lat: 54.51250049999999,
                         lng: 18.539694699999927
                     },
                     zoom: 15
                 });
-                service = new google.maps.places.PlacesService(map);
+                var service = new google.maps.places.PlacesService(map);
                 var marker = new google.maps.Marker({
                     map: map
                 });
