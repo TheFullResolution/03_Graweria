@@ -1,63 +1,5 @@
 /* global google, Vue $ jQuery Hammer VueRouter*/
 
-Vue.component('start-page', {
-    template: '#start_page_template',
-    ready: function() {
-        $('#video_div').addClass('video_div_background');
-        if (this.$parent.displayVideo) {
-            this.runVideo();
-        }
-        this.scrollVideodown();
-    },
-    methods: {
-        runVideo: function() {
-            var supportsVideoElement = !!document.createElement('video').canPlayType;
-            if (supportsVideoElement) {
-                var backVideo = document.createElement('video');
-                backVideo.className = 'video';
-                backVideo.id = 'back_video';
-                backVideo.loop = true;
-                backVideo.poster = 'img/sequence01.jpg';
-                var canPlay_MP4 = backVideo.canPlayType('video/mp4; codecs="avc1.42E01E,mp4a.40.2"');
-                var canPlay_OGV = backVideo.canPlayType('video/ogg; codecs="theora,vorbis"');
-                var canPlay_WEMB = backVideo.canPlayType('video/webm; codecs="vp8,vorbis"');
-                var source = document.createElement('source');
-                if (canPlay_MP4.length > 0) {
-                    source.type = 'video/mp4';
-                    source.src = 'video/grawer_background.mp4';
-                } else if (canPlay_OGV.length > 0) {
-                    source.type = 'video/ogg';
-                    source.src = 'video/grawer_background.ogv';
-                } else if (canPlay_WEMB.length > 0) {
-                    source.type = 'video/webm';
-                    source.src = 'video/grawer_background.webm';
-                }
-                var videoDiv = $('#video_div');
-                backVideo.appendChild(source);
-                backVideo.load();
-                videoDiv.append(backVideo);
-                var backVideoDom = document.getElementById('back_video');
-                backVideoDom.oncanplaythrough = function() {
-                    backVideoDom.play();
-                };
-            }
-        },
-        scrollVideodown: function() {
-            var self = this;
-            $('#video_div').bind('mousewheel', function() {
-                self.putVideodown();
-                router.go({
-                    path: '/info'
-                });
-            });
-        },
-        putVideodown: function() {
-            $('#back_video').remove();
-            $('#video_div').off('mousewheel');
-        }
-    }
-});
-
 var App = Vue.extend({
     data: function() {
         return {
@@ -75,21 +17,8 @@ var App = Vue.extend({
         this.downloadMapAPI();
         this.downloadlazyload();
         this.fetchData();
-        this.checklink();
     },
     computed: {
-        displayVideo: function() {
-            var width = Math.max(document.documentElement.clientWidth, window.innerWidth);
-            if (this.$route.path === '/') {
-                if (width < 800 && (typeof window.orientation) !== 'undefined') {
-                    return false;
-                } else {
-                    return true;
-                }
-            } else {
-                return false;
-            }
-        },
         langText: function() {
             return 'english';
         },
@@ -107,13 +36,6 @@ var App = Vue.extend({
         }
     },
     methods: {
-        checklink: function() {
-            if (this.$route.path === '/' && !this.displayVideo) {
-                router.go({
-                    path: '/info'
-                });
-            }
-        },
         downloadMapAPI: function() {
             var self = this;
             var url = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDGUROHjSwHDzFbfvD07N-47_bq3bdgaOs&libraries=places';
@@ -706,7 +628,7 @@ var Map = Vue.extend({
 var router = new VueRouter({});
 
 router.map({
-    '/info': {
+    '/': {
         component: Info,
         subRoutes: {
             '/': {
