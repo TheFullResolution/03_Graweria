@@ -1,290 +1,278 @@
 <!DOCTYPE html>
 <html lang="pl">
-    <head>
-        <meta charset="utf-8" />
-        <title>Graweria.pl - Sklep i Pracownia Grawer Gdynia</title>
-        <meta property="og:title" content="Graweria.pl - Sklep Grawer Gdynia" />
-        <meta property="og:url" content="https://graweria.pl" />
-        <meta property="og:image" content="https://graweria.pl/img/facebookimg.jpg" />
-        <meta property="og:image:type" content="image/jpeg" />
-        <meta property="og:image:width" content="600" />
-        <meta property="og:image:height" content="315" />
-        <meta property="og:description"
-        content="Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni."/>
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-        <meta name="description" content="Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni. Grawerujemy obrączki, biżuterię zegarki, herby, monogramy i tabliczki okolicznościowe." />
-        <meta name="author" content="thefullresolution.com"/>
-        <meta name="keywords" content="grawer, grawer gdynia, tabliczki, zippo, pamiątki z pierwszej komunii,
+	<head>
+		<meta charset="utf-8"/>
+		<title>Graweria.pl - Sklep i Pracownia Grawer Gdynia</title>
+		<meta property="og:title" content="Graweria.pl - Sklep Grawer Gdynia"/>
+		<meta property="og:url" content="https://graweria.pl"/>
+		<meta property="og:image" content="https://graweria.pl/img/facebookimg.jpg"/>
+		<meta property="og:image:type" content="image/jpeg"/>
+		<meta property="og:image:width" content="600"/>
+		<meta property="og:image:height" content="315"/>
+		<meta property="og:description" content="Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni."/>
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="description" content="Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni. Grawerujemy obrączki, biżuterię zegarki, herby, monogramy i tabliczki okolicznościowe."/>
+		<meta name="author" content="thefullresolution.com"/>
+		<meta name="keywords" content="grawer, grawer gdynia, tabliczki, zippo, pamiątki z pierwszej komunii,
         monogramy, herby, ikony, chrzest, grawerowanie, grawerka, grawer trójmiasto"/>
-        <link rel="alternate" href="https://graweria.pl/" hreflang="pl" />
-        <link rel="alternate" href="https://graweria.pl/en" hreflang="en" />
-        <link rel="stylesheet" href="css/app.min.css">
+		<link rel="alternate" href="https://graweria.pl/" hreflang="pl"/>
+		<link rel="alternate" href="https://graweria.pl/en" hreflang="en"/>
+		<link rel="stylesheet" href="css/app.min.css">
+		<link rel="shortcut icon" href="favicon.ico"/>
+	</head>
+	<body id="app">
+		<header>
+			<div class="header_div">
+				<a v-link="{path: '/'}"><img src="img/banner.png" alt="banner" class="banner"/></a>
 
-        <link rel="shortcut icon" href="favicon.ico"/>
-    </head>
-    <body id="app">
-        <header>
-            <div class="header_div">
-                <img src="img/banner.png" alt="banner" class="banner"/>
-                <div class="links_div">
-                    <a v-link="{path: '/info'}" class="links infolink">Dane Firmy</a>
-                    <a v-link="{path: '/offer/shop/all'}" class="links offerlink">Nasza Oferta</a>
-                    <a v-link="{path: '/map'}" class="links maplink">Mapa Dojazdu</a>
-                </div>
-            </div>
-            <div class="language">
-                <a href="en/#!/info">English</a>
-            </div>
-        </header>
-        <start-page v-if="displayVideo" class="videotrans" transition="videotrans" transition-mode="out-in"></start-page>
-        <section class="app">
-            <router-view class="fade" transition="fade" transition-mode="out-in"></router-view>
-        </section>
-        <footer>
-            <p>Page by <a href="https://www.thefullresolution.com/">theFullResolution.</a></p>
-        </footer>
-        <script type="text/x-template" id="start_page_template">
-        <div id="video_div" class="video_div">
-            <a v-link="{path: '/info'}" class="link_content" v-on:click="putVideodown">
-                <div class="content"><img src="img/banner.png" alt="banner"/>
-                    <img src="img/down.png" alt="down arrow" class="down_arrow"/>
-                </div>
-            </a>
-        </div>
-        </script>
-        <script type="text/x-template" id="info_template">
-        <div class="info">
-            <div class="info_top">
-                <h1>Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni.</h1>
-                <p>50 lat gwarancji na ręcznie grawerowane obrączki.
-                    Jest to wymiar rzemiosła, które oferuje Państwu nasza firma.
-                    Firma, której korzenie sięgają Pracowni Grawerskiej powstałej
-                w Gdyni w pierwszych latach powojennych.</p>
-            </div>
-            <router-view></router-view>
-            <div class="info_board">
-                <div class="info_details">
-                    <div class="info_details_el">
-                        <h3>Grawer</h3>
-                        <p><img src="img/address.png" alt="address icon">Świętojańska 81, Gdynia 81-389</p>
-                        <p></p>
-                        <p><img src="img/phone.png" alt="phone icon"><a href="tel:+48586200273">+48 58 620 02 73</a></p>
-                        <p><img src="img/email.png" alt="email icon"><a href="mailto:grawer.gdynia@interia.pl">grawer.gdynia@interia.pl</a></p>
-                    </div>
-                    <div class="info_details_el">
-                        <h3>Godziny otwarcia:</h3>
-                        <p>Od poniedziałku do piątku: 11:00 - 18:00</p>
-                        <p>Sobota: 11:00 - 14:00</p>
-                    </div>
-                </div>
-                <a href="#info/video" class="info_link_popup">
-                    <p>Obejrzyj nasz film:</p>
-                    <img
-                    class="info_pic lazyload"
-                    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                    data-src="img/hours_play.jpg"
-                    alt="hours"
-                    >
-                </a>
-            </div>
-        </div>
-        </script>
-        <script type="text/x-template" id="videopopup_template">
-        <div class="popup_mask" transition="popup">
-            <div class="popup_container">
-                <a v-link="{path: '/info'}" class="close_button">
-                    <img src="img/close.svg" alt="x button"/>
-                </a>
-                <iframe  src="https://www.youtube.com/embed/aErESYSH0EQ?showinfo=0" allowfullscreen></iframe>
-                <footer>
-                    <p>Video by <a href="http://www.tristudio.pl/">Tristudio.pl</a></p>
-                </footer>
-            </div>
-        </div>
-        </script>
-        <script type="text/x-template" id="map_template">
-        <div class="map_container">
-            <a href="https://www.google.com/maps/place/Grawer/@54.5125005,18.5375007,17z/data=!3m1!4b1!4m2!3m1!1s0x46fda73195e00d65:0xa620abc7320fac9f?hl=pl-PL"
-                class="link_to_map"
-                target="blank">
-                Wyświetl na Google Map
-            </a>
-            <div id="map_div" class="map">Sorry, no map</div>
-        </div>
-        </script>
-        <script type="text/x-template" id="offer_template">
-        <div>
-            <div class="link_offer_container">
-                <div class="link_offer_div">
-                    <a v-link="{path: '/offer/shop/all'}"  class="link_offer shop_link">
-                        Sklep
-                    </a>
-                    <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
-                        Rzemiosło
-                    </a>
-                    <a v-link="{path: '/offer/assortment/ikony'}"  class="link_offer assortment_link">
-                        Produkty
-                    </a>
-                </div>
-                <div class="link_offer_sticky">
-                    <div class="link_offer_big">
-                        <a v-link="{path: '/offer/shop/all'}"  class="link_offer shop_link">
-                            Sklep
-                        </a>
-                        <a v-link="{path: '/offer/craft/herby'}"  class="link_offer craft_link">
-                            Rękodzieło
-                        </a>
-                        <a v-link="{path: '/offer/assortment/ikony'}"  class="link_offer assortment_link">
-                            Produkty
-                        </a>
-                        <img src="img/up.png" alt="up button" class="offer_up" v-on:click="upClick">
-                    </div>
-                </div>
-            </div>
-            <div class="offer_sections">
-                <router-view class="move" transition="move" transition-mode="out-in"></router-view>
-            </div>
-        </div>
-        </script>
-        <script type="text/x-template" id="shop_template">
-        <div class="shop_div">
-            <figure v-for="pic in pics" class="shop_div_item">
-                <a v-link="{path: zoomlink + $index}">
-                    <div class="img_div">
-                        <img
-                        class="lazyload pics"
-                        data-expand="-100"
-                        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}"
-                        >
-                    </div>
-                </a>
-            </figure>
-            <router-view></router-view>
-        </div>
-        </script>
-        <script type="text/x-template" id="craft_template">
-        <div class="offer_container">
-            <div class="offer_filters_container">
-                <div class="show_filters" v-show="!$parent.show">
-                    <div class="toggle_filters" v-on:click="$parent.toggleFilter">
-                        <img src="img/right.png" class="arrow_filters">
-                    </div>
-                </div>
-                <div class="offer_filters_div" v-show="$parent.show">
-                    <div class="toggle_filters" v-on:click="$parent.toggleFilter">
-                        <img src="img/left.png" class="arrow_filters">
-                    </div>
-                    <a v-link="{path: '/offer/craft/herby'}" v-on:click="$parent.filterClick">Herby, monogramy</a>
-                    <a v-link="{path: '/offer/craft/tablice'}" v-on:click="$parent.filterClick">Tablice</a>
-                    <a v-link="{path: '/offer/craft/tabliczki'}" v-on:click="$parent.filterClick">Tabliczki okolicznościowe</a>
-                    <a v-link="{path: '/offer/craft/obraczki'}" v-on:click="$parent.filterClick">Obrączki</a>
-                    <a v-link="{path: '/offer/craft/male'}" v-on:click="$parent.filterClick">Biżuteria, zegarki i inne</a>
-                    <a v-link="{path: '/offer/craft/dzwony'}" v-on:click="$parent.filterClick">Dzwony</a>
-                    <a v-link="{path: '/offer/craft/all'}" v-on:click="$parent.filterClick">Wszystkie</a>
-                </div>
-            </div>
-            <div class="offer_content_div">
-                <figure v-for="pic in pics | filterBy filterVal in 'product'"
-                    class="offer_content_item">
-                    <a v-link="{path: zoomlink + $index}">
-                        <img
-                        class="lazyload pics"
-                        data-expand="-100"
-                        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}">
-                    </a>
-                </figure>
-            </div>
-            <router-view></router-view>
-        </div>
-        </script>
-        <script type="text/x-template" id="assortment_template">
-        <div class="offer_container">
-            <div class="offer_filters_container">
-                <div class="show_filters" v-show="!$parent.show">
-                    <div class="toggle_filters" v-on:click="$parent.toggleFilter">
-                        <img src="img/right.png" class="arrow_filters">
-                    </div>
-                </div>
-                <div class="offer_filters_div" v-show="$parent.show">
-                    <div class="toggle_filters" v-on:click="$parent.toggleFilter">
-                        <img src="img/left.png" class="arrow_filters">
-                    </div>
-                    <a v-link="{path: '/offer/assortment/ikony'}" v-on:click="$parent.filterClick">Ikony</a>
-                    <a v-link="{path: '/offer/assortment/chrzest'}" v-on:click="$parent.filterClick">Chrzest i I Komunia</a>
-                    <a v-link="{path: '/offer/assortment/biala'}" v-on:click="$parent.filterClick">
-                    Repliki broni białej</a>
-                    <a v-link="{path: '/offer/assortment/palna'}" v-on:click="$parent.filterClick">
-                    Repliki broni palnej</a>
-                    <a v-link="{path: '/offer/assortment/mw'}" v-on:click="$parent.filterClick">
-                    Szabla i kordzik Marynarki Wojennej</a>
-                    <a v-link="{path: '/offer/assortment/male'}" v-on:click="$parent.filterClick">Artykuły pamiątkowe</a>
-                    <a v-link="{path: '/offer/assortment/figurki'}" v-on:click="$parent.filterClick">Figurki</a>
-                    <a v-link="{path: '/offer/assortment/ryngraf'}" v-on:click="$parent.filterClick">Ryngrafy</a>
-                    <a v-link="{path: '/offer/assortment/zippo'}" v-on:click="$parent.filterClick">Zippo</a>
-                    <a v-link="{path: '/offer/assortment/all'}" v-on:click="$parent.filterClick">Wszystkie</a>
-                </div>
-            </div>
-            <div class="offer_content_div">
-                <figure v-for="pic in pics | filterBy filterVal in 'product'"
-                    class="offer_content_item">
-                    <a v-link="{path: zoomlink + $index}">
-                        <img
-                        class="lazyload pics"
-                        data-expand="-100"
-                        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}">
-                    </a>
-                </figure>
-            </div>
-            <router-view></router-view>
-        </div>
-        </script>
-        <script type="text/x-template" id="picture_zoom_template">
-        <div class="popup_mask" transition="popup"  id="swipe_div">
-            <div class="popup_container" >
-                <div class="popup_details_top">
-                    <div class="tab_text">
-                        <p>Obrazek: {{index + 1}}/{{lengthZoomPics}}</p>
-                    </div>
-                    <div class="close_btn">
-                        <a v-link="{path: zoomlink}">
-                            <img src="img/close.svg" alt="close button" >
-                        </a>
-                    </div>
-                </div>
-                <div class="popup_img_div"
-                    v-bind:class="popClass">
-                    <a v-link ="{path: zoomlink + prevpic}"
-                        class="arrows left">
-                        <img src="img/left.png" alt="left arrow" >
-                    </a>
-                    <div  class="img_link" v-on:click="details">
-                        <img class="img_link_img lazyload"
-                        v-bind:class="imgClass"
-                        src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                        data-src="{{groupFolder + currentPic.product + '/' + thumbFolder + currentPic.name}}"
-                        >
-                    </div>
-                    <a v-link ="{path: zoomlink + nextpic}"
-                        class="arrows right">
-                        <img src="img/right.png" alt="right arrow" >
-                    </a>
-                </div>
-            </div>
-        </div>
-        </script>
-        <script src="js/app.min.js"></script>
+				<div class="links_div">
+					<a v-link="{path: '/'}" class="links infolink">Dane Firmy</a>
+					<a v-link="{path: '/offer/shop/all'}" class="links offerlink">Nasza Oferta</a>
+					<a v-link="{path: '/map'}" class="links maplink">Mapa Dojazdu</a>
+				</div>
+			</div>
+			<div class="language">
+				<a href="en/#!/">English</a>
+			</div>
+		</header>
 
-        <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-58685238-4', 'auto');
-        ga('send', 'pageview');
-        </script>
+		<section class="app">
+			<router-view class="fade" transition="fade" transition-mode="out-in"></router-view>
+		</section>
+		<footer>
+			<p>Page by
+				<a href="https://www.thefullresolution.com/">theFullResolution.</a>
+			</p>
+		</footer>
+		<script type="text/x-template" id="start_page_template">
+			<div id="video_div" class="video_div">
+				<a v-link="{path: '/'}" class="link_content" v-on:click="putVideodown">
+					<div class="content"><img src="img/banner.png" alt="banner"/>
+						<img src="img/down.png" alt="down arrow" class="down_arrow"/>
+					</div>
+				</a>
+			</div>
+		</script>
+		<script type="text/x-template" id="info_template">
+			<div class="info">
+				<div class="info_top">
+					<h1>Pracownia Grawerska oraz sklep z pamiątkami i militariami w Gdyni.</h1>
+					<p>50 lat gwarancji na ręcznie grawerowane obrączki. Jest to wymiar rzemiosła, które oferuje Państwu nasza firma. Firma, której korzenie sięgają Pracowni Grawerskiej powstałej w Gdyni w pierwszych
+						latach powojennych.</p>
+				</div>
+				<router-view></router-view>
+				<div class="info_board">
+					<div class="info_details">
+						<div class="info_details_el">
+							<h3>Grawer</h3>
+							<p><img src="img/address.png" alt="address icon">Świętojańska 81, Gdynia 81-389</p>
+							<p></p>
+							<p><img src="img/phone.png" alt="phone icon">
+								<a href="tel:+48586200273">+48 58 620 02 73</a>
+							</p>
+							<p><img src="img/email.png" alt="email icon">
+								<a href="mailto:grawer.gdynia@interia.pl">grawer.gdynia@interia.pl</a>
+							</p>
+						</div>
+						<div class="info_details_el">
+							<h3>Godziny otwarcia:</h3>
+							<p>Od poniedziałku do piątku: 11:00 - 18:00</p>
+							<p>Sobota: 11:00 - 14:00</p>
+						</div>
+					</div>
+					<a href="#/video" class="info_link_popup">
+						<p>Obejrzyj nasz film:</p>
+						<img class="info_pic lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="img/hours_play.jpg" alt="hours">
+					</a>
+				</div>
+			</div>
+		</script>
+		<script type="text/x-template" id="videopopup_template">
+			<div class="popup_mask" transition="popup">
+				<div class="popup_container">
+					<a v-link="{path: '/'}" class="close_button">
+						<img src="img/close.svg" alt="x button"/>
+					</a>
+					<iframe src="https://www.youtube.com/embed/aErESYSH0EQ?showinfo=0" allowfullscreen="allowfullscreen"></iframe>
+					<footer>
+						<p>Video by
+							<a href="http://www.tristudio.pl/">Tristudio.pl</a>
+						</p>
+					</footer>
+				</div>
+			</div>
+		</script>
+		<script type="text/x-template" id="map_template">
+			<div class="map_container">
+				<a href="https://www.google.com/maps/place/Grawer/@54.5125005,18.5375007,17z/data=!3m1!4b1!4m2!3m1!1s0x46fda73195e00d65:0xa620abc7320fac9f?hl=pl-PL" class="link_to_map" target="blank">
+					Wyświetl na Google Map
+				</a>
+				<div id="map_div" class="map">Sorry, no map</div>
+			</div>
+		</script>
+		<script type="text/x-template" id="offer_template">
+			<div>
+				<div class="link_offer_container">
+					<div class="link_offer_div">
+						<a v-link="{path: '/offer/shop/all'}" class="link_offer shop_link">
+							Sklep
+						</a>
+						<a v-link="{path: '/offer/craft/herby'}" class="link_offer craft_link">
+							Rzemiosło
+						</a>
+						<a v-link="{path: '/offer/assortment/ikony'}" class="link_offer assortment_link">
+							Produkty
+						</a>
+					</div>
+					<div class="link_offer_sticky">
+						<div class="link_offer_big">
+							<a v-link="{path: '/offer/shop/all'}" class="link_offer shop_link">
+								Sklep
+							</a>
+							<a v-link="{path: '/offer/craft/herby'}" class="link_offer craft_link">
+								Rękodzieło
+							</a>
+							<a v-link="{path: '/offer/assortment/ikony'}" class="link_offer assortment_link">
+								Produkty
+							</a>
+							<img src="img/up.png" alt="up button" class="offer_up" v-on:click="upClick">
+						</div>
+					</div>
+				</div>
+				<div class="offer_sections">
+					<router-view class="move" transition="move" transition-mode="out-in"></router-view>
+				</div>
+			</div>
+		</script>
+		<script type="text/x-template" id="shop_template">
+			<div class="shop_div">
+				<figure v-for="pic in pics" class="shop_div_item">
+					<a v-link="{path: zoomlink + $index}">
+						<div class="img_div">
+							<img class="lazyload pics" data-expand="-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}">
+						</div>
+					</a>
+				</figure>
+				<router-view></router-view>
+			</div>
+		</script>
+		<script type="text/x-template" id="craft_template">
+			<div class="offer_container">
+				<div class="offer_filters_container">
+					<div class="show_filters" v-show="!$parent.show">
+						<div class="toggle_filters" v-on:click="$parent.toggleFilter">
+							<img src="img/right.png" class="arrow_filters">
+						</div>
+					</div>
+					<div class="offer_filters_div" v-show="$parent.show">
+						<div class="toggle_filters" v-on:click="$parent.toggleFilter">
+							<img src="img/left.png" class="arrow_filters">
+						</div>
+						<a v-link="{path: '/offer/craft/herby'}" v-on:click="$parent.filterClick">Herby, monogramy</a>
+						<a v-link="{path: '/offer/craft/tablice'}" v-on:click="$parent.filterClick">Tablice</a>
+						<a v-link="{path: '/offer/craft/tabliczki'}" v-on:click="$parent.filterClick">Tabliczki okolicznościowe</a>
+						<a v-link="{path: '/offer/craft/obraczki'}" v-on:click="$parent.filterClick">Obrączki</a>
+						<a v-link="{path: '/offer/craft/male'}" v-on:click="$parent.filterClick">Biżuteria, zegarki i inne</a>
+						<a v-link="{path: '/offer/craft/dzwony'}" v-on:click="$parent.filterClick">Dzwony</a>
+						<a v-link="{path: '/offer/craft/all'}" v-on:click="$parent.filterClick">Wszystkie</a>
+					</div>
+				</div>
+				<div class="offer_content_div">
+					<figure v-for="pic in pics | filterBy filterVal in 'product'" class="offer_content_item">
+						<a v-link="{path: zoomlink + $index}">
+							<img class="lazyload pics" data-expand="-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}">
+						</a>
+					</figure>
+				</div>
+				<router-view></router-view>
+			</div>
+		</script>
+		<script type="text/x-template" id="assortment_template">
+			<div class="offer_container">
+				<div class="offer_filters_container">
+					<div class="show_filters" v-show="!$parent.show">
+						<div class="toggle_filters" v-on:click="$parent.toggleFilter">
+							<img src="img/right.png" class="arrow_filters">
+						</div>
+					</div>
+					<div class="offer_filters_div" v-show="$parent.show">
+						<div class="toggle_filters" v-on:click="$parent.toggleFilter">
+							<img src="img/left.png" class="arrow_filters">
+						</div>
+						<a v-link="{path: '/offer/assortment/ikony'}" v-on:click="$parent.filterClick">Ikony</a>
+						<a v-link="{path: '/offer/assortment/chrzest'}" v-on:click="$parent.filterClick">Chrzest i I Komunia</a>
+						<a v-link="{path: '/offer/assortment/biala'}" v-on:click="$parent.filterClick">
+							Repliki broni białej</a>
+						<a v-link="{path: '/offer/assortment/palna'}" v-on:click="$parent.filterClick">
+							Repliki broni palnej</a>
+						<a v-link="{path: '/offer/assortment/mw'}" v-on:click="$parent.filterClick">
+							Szabla i kordzik Marynarki Wojennej</a>
+						<a v-link="{path: '/offer/assortment/male'}" v-on:click="$parent.filterClick">Artykuły pamiątkowe</a>
+						<a v-link="{path: '/offer/assortment/figurki'}" v-on:click="$parent.filterClick">Figurki</a>
+						<a v-link="{path: '/offer/assortment/ryngraf'}" v-on:click="$parent.filterClick">Ryngrafy</a>
+						<a v-link="{path: '/offer/assortment/zippo'}" v-on:click="$parent.filterClick">Zippo</a>
+						<a v-link="{path: '/offer/assortment/all'}" v-on:click="$parent.filterClick">Wszystkie</a>
+					</div>
+				</div>
+				<div class="offer_content_div">
+					<figure v-for="pic in pics | filterBy filterVal in 'product'" class="offer_content_item">
+						<a v-link="{path: zoomlink + $index}">
+							<img class="lazyload pics" data-expand="-100" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{groupFolder + pic.product + '/' + thumbFolder + pic.name}}">
+						</a>
+					</figure>
+				</div>
+				<router-view></router-view>
+			</div>
+		</script>
+		<script type="text/x-template" id="picture_zoom_template">
+			<div class="popup_mask" transition="popup" id="swipe_div">
+				<div class="popup_container">
+					<div class="popup_details_top">
+						<div class="tab_text">
+							<p>Obrazek:
+								{{index + 1}}/{{lengthZoomPics}}</p>
+						</div>
+						<div class="close_btn">
+							<a v-link="{path: zoomlink}">
+								<img src="img/close.svg" alt="close button">
+							</a>
+						</div>
+					</div>
+					<div class="popup_img_div" v-bind:class="popClass">
+						<a v-link="{path: zoomlink + prevpic}" class="arrows left">
+							<img src="img/left.png" alt="left arrow">
+						</a>
+						<div class="img_link" v-on:click="details">
+							<img
+								class="img_link_img lazyload"
+								v-bind:class="imgClass"
+								src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+								data-src="{{groupFolder + currentPic.product + '/' + thumbFolder + currentPic.name}}">
+						</div>
+						<a v-link="{path: zoomlink + nextpic}" class="arrows right">
+							<img src="img/right.png" alt="right arrow">
+						</a>
+					</div>
+				</div>
+			</div>
+		</script>
+		<script src="js/app.min.js"></script>
+		<script>
+			(function (i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r;
+				i[r] = i[r] || function () {
+					(i[r].q = i[r].q || []).push(arguments)
+				},
+				i[r].l = 1 * new Date();
+				a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+			ga('create', 'UA-58685238-4', 'auto');
+			ga('send', 'pageview');
+		</script>
 
-    </body>
+	</body>
 </html>
